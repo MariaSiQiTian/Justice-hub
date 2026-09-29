@@ -1,0 +1,1387 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Maria's Justice Hub helps students understand their rights and explore their next step."
+    />
+    <title>Maria's Justice Hub — Know your rights</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --cream: #fff9e8;
+        --honey: #f4c95d;
+        --gold: #e5a936;
+        --pale-yellow: #fff1c7;
+        --ink: #332d22;
+        --muted: #766f62;
+        --white: #ffffff;
+        --line: #e9dfc5;
+        --shadow: 0 18px 45px rgba(91, 67, 21, 0.1);
+      }
+
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body {
+        margin: 0;
+        min-width: 320px;
+        color: var(--ink);
+        background: var(--cream);
+        font-family: "DM Sans", system-ui, sans-serif;
+      }
+      button, input { font: inherit; }
+      button { cursor: pointer; }
+      a { color: inherit; text-decoration: none; }
+
+      .container { width: min(1120px, calc(100% - 48px)); margin: 0 auto; }
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin: 0 0 16px;
+        color: #806019;
+        font-family: "DM Mono", monospace;
+        font-size: 0.72rem;
+        font-weight: 500;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+      .eyebrow::before { content: ""; width: 18px; height: 1px; background: currentColor; }
+      .section-heading { max-width: 600px; }
+      h1, h2, h3, p { margin-top: 0; }
+      h1, h2 { font-family: "Playfair Display", Georgia, serif; letter-spacing: -0.055em; }
+      h2 { margin-bottom: 14px; font-size: clamp(2rem, 4vw, 3.2rem); line-height: 1.05; }
+      .lede { color: var(--muted); font-size: 1.05rem; line-height: 1.65; }
+
+      .site-header { padding: 21px 0; position: relative; z-index: 2; }
+      .nav { display: flex; align-items: center; justify-content: space-between; gap: 25px; }
+      .brand { display: inline-flex; align-items: center; gap: 10px; font-weight: 700; letter-spacing: -0.04em; font-size: 1.1rem; }
+      .brand-mark { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 10px; background: var(--honey); color: var(--ink); }
+      .brand-mark svg { width: 22px; height: 22px; }
+      .nav-links { display: flex; align-items: center; gap: 28px; color: #60594d; font-size: 0.91rem; font-weight: 500; }
+      .nav-links a:hover { color: var(--ink); }
+      .nav-cta, .button-primary, .input-button {
+        border: 0;
+        background: var(--honey);
+        color: var(--ink);
+        font-weight: 700;
+        transition: transform 160ms ease, background 160ms ease, box-shadow 160ms ease;
+      }
+      .nav-cta { padding: 11px 16px; border-radius: 9px; font-size: 0.88rem; }
+      .nav-cta:hover, .button-primary:hover, .input-button:hover { background: #f7d574; transform: translateY(-2px); box-shadow: 0 8px 18px rgba(179, 127, 21, 0.18); }
+      .menu-button { display: none; border: 0; background: transparent; color: var(--ink); padding: 5px; }
+
+      .hero { position: relative; overflow: hidden; padding: 72px 0 92px; }
+      .hero::after { content: ""; position: absolute; z-index: -1; width: 450px; height: 450px; right: -150px; top: -150px; border-radius: 50%; background: #ffe7a0; opacity: 0.45; }
+      .hero-layout { display: grid; grid-template-columns: 1.07fr 0.93fr; align-items: center; gap: clamp(35px, 7vw, 100px); }
+      .hero h1 { max-width: 700px; margin-bottom: 23px; font-size: clamp(3.35rem, 7vw, 6rem); line-height: 0.96; }
+      .hero h1 em { display: block; color: var(--gold); font-style: italic; }
+      .hero .lede { max-width: 540px; }
+      .hero-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 19px; margin-top: 31px; }
+      .button-primary { display: inline-flex; align-items: center; gap: 11px; padding: 16px 21px; border-radius: 11px; font-size: 0.98rem; }
+      .button-primary .arrow { font-size: 1.25em; transition: transform 160ms ease; }
+      .button-primary:hover .arrow { transform: translateX(3px); }
+      .quiet-link { font-size: 0.9rem; color: #625b4e; font-weight: 600; border-bottom: 1px solid #cfc3a3; padding-bottom: 2px; }
+      .hero-note { display: flex; gap: 10px; align-items: center; margin-top: 28px; color: #6f6759; font-size: 0.78rem; }
+      .hero-note span { display: grid; place-items: center; width: 19px; height: 19px; border: 1px solid #cfc4a7; border-radius: 50%; font-size: 0.7rem; }
+      .kind-stickers { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 17px; }
+      .kind-sticker { display: inline-flex; align-items: center; padding: 7px 10px; border: 1px solid #ead18a; border-radius: 999px; background: rgba(255, 255, 255, 0.8); color: #685733; font-size: 0.76rem; font-weight: 600; }
+
+      .hero-art { position: relative; min-height: 370px; }
+      .art-card { position: absolute; background: var(--white); border: 1px solid rgba(202, 185, 141, 0.5); border-radius: 20px; box-shadow: var(--shadow); }
+      .art-main { width: min(100%, 365px); right: 14px; top: 25px; padding: 26px; }
+      .art-topline { display: flex; align-items: center; justify-content: space-between; font-family: "DM Mono", monospace; color: #81796b; font-size: 0.7rem; }
+      .mini-spark { color: var(--gold); font-size: 1rem; }
+      .art-question { margin: 27px 0 18px; font-family: "Playfair Display", Georgia, serif; font-size: 1.54rem; line-height: 1.18; letter-spacing: -0.035em; }
+      .art-response { display: flex; gap: 10px; padding: 13px; border-radius: 12px; background: #fff6d8; color: #615948; font-size: 0.8rem; line-height: 1.45; }
+      .response-icon { flex: 0 0 auto; display: grid; place-items: center; width: 24px; height: 24px; border-radius: 7px; background: var(--honey); color: var(--ink); }
+      .art-lines { display: grid; gap: 8px; margin-top: 20px; }
+      .art-lines span { height: 7px; border-radius: 8px; background: #eee8db; }
+      .art-lines span:nth-child(2) { width: 79%; }
+      .art-lines span:nth-child(3) { width: 58%; }
+      .art-orbit { position: absolute; width: 330px; height: 330px; border: 1px solid #eadcb7; border-radius: 50%; right: 0; top: 3px; }
+      .art-orbit::after { content: ""; position: absolute; width: 11px; height: 11px; border-radius: 50%; background: var(--gold); left: 10px; top: 63px; }
+      .art-badge { left: 0; bottom: 27px; z-index: 1; padding: 13px 16px; display: flex; gap: 11px; align-items: center; font-size: 0.76rem; font-weight: 600; }
+      .badge-symbol { display: grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; background: var(--pale-yellow); color: #97721e; font-size: 1.1rem; }
+
+      .help { padding: 88px 0 98px; background: var(--white); }
+      .help-intro { display: flex; align-items: end; justify-content: space-between; gap: 28px; }
+      .help-intro .lede { max-width: 395px; margin-bottom: 2px; font-size: 0.98rem; }
+      .help-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 17px; margin-top: 39px; }
+      .help-card { min-height: 270px; padding: 25px; border: 1px solid #f1e6c8; border-radius: 16px; background: var(--pale-yellow); transition: transform 180ms ease, box-shadow 180ms ease; }
+      .help-card:nth-child(2) { background: #fff9e8; }
+      .help-card:nth-child(3) { background: #fff4d1; }
+      .help-card:hover { transform: translateY(-5px); box-shadow: 0 16px 30px rgba(83, 63, 25, 0.1); }
+      .card-icon { display: grid; place-items: center; width: 45px; height: 45px; margin-bottom: 48px; border-radius: 13px; background: var(--white); color: #947020; font-size: 1.27rem; }
+      .help-card h3 { margin-bottom: 10px; font-family: "Playfair Display", Georgia, serif; font-size: 1.42rem; letter-spacing: -0.04em; }
+      .help-card p { margin-bottom: 0; color: #706756; font-size: 0.91rem; line-height: 1.55; }
+
+      .start { padding: 98px 0; }
+      .start-box { position: relative; overflow: hidden; display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 55px; padding: clamp(30px, 5vw, 64px); border-radius: 25px; background: var(--honey); }
+      .start-box::after { content: "?"; position: absolute; right: 2%; top: -44%; color: rgba(255,255,255,0.21); font-family: "Playfair Display", Georgia, serif; font-size: 24rem; line-height: 1; pointer-events: none; }
+      .start-box .eyebrow { color: #765410; }
+      .start-box h2 { position: relative; z-index: 1; margin-bottom: 0; max-width: 340px; font-size: clamp(2.35rem, 4vw, 3.6rem); }
+      .question-form { position: relative; z-index: 1; align-self: center; }
+      .form-fields { display: grid; gap: 10px; }
+      .field-label { display: block; margin: 0 2px 5px; color: #5e4310; font-size: 0.82rem; font-weight: 700; }
+      .question-input { display: flex; align-items: center; padding: 8px 8px 8px 17px; border: 1px solid rgba(105, 75, 10, 0.2); border-radius: 13px; background: var(--white); box-shadow: 0 12px 28px rgba(101, 72, 11, 0.12); }
+      .question-input input, .question-input textarea, .question-input select { width: 100%; min-width: 0; border: 0; outline: 0; color: var(--ink); background: transparent; font-size: 0.92rem; }
+      .question-input textarea { min-height: 118px; padding: 8px 4px 8px 0; resize: vertical; line-height: 1.4; }
+      .question-input input::placeholder, .question-input textarea::placeholder { color: #938b7b; }
+      .location-input { padding: 0 17px; box-shadow: none; }
+      .location-input input { height: 43px; }
+      .location-input select { height: 43px; appearance: auto; cursor: pointer; }
+      .location-flow { display: grid; gap: 10px; }
+      .location-step[hidden], .other-location[hidden] { display: none; }
+      .submit-row { display: flex; justify-content: flex-end; margin-top: 10px; }
+      .input-button { flex: 0 0 auto; padding: 13px 15px; border-radius: 9px; font-size: 0.86rem; white-space: nowrap; }
+      .input-button[disabled] { cursor: wait; opacity: 0.72; transform: none; box-shadow: none; }
+      .form-caption { margin: 11px 2px 0; color: rgba(70, 51, 16, 0.76); font-size: 0.75rem; }
+      .location-caption { margin: -1px 2px 2px; color: rgba(70, 51, 16, 0.76); font-size: 0.75rem; line-height: 1.4; }
+      .gentle-note { display: flex; align-items: center; gap: 8px; margin: 0 2px 2px; padding: 10px 12px; border-radius: 11px; background: rgba(255, 255, 255, 0.35); color: #60491b; font-size: 0.77rem; font-weight: 600; line-height: 1.4; }
+      .form-error { min-height: 1.15em; margin: 8px 2px 0; color: #8a3a28; font-size: 0.8rem; font-weight: 500; }
+
+      .answer-section { padding: 0 0 98px; }
+      .answer-section[hidden] { display: none; }
+      .answer-shell { padding: clamp(24px, 4vw, 48px); border: 1px solid #eadcb7; border-radius: 22px; background: var(--white); box-shadow: var(--shadow); }
+      .answer-topline { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding-bottom: 19px; border-bottom: 1px solid var(--line); }
+      .answer-label { display: inline-flex; align-items: center; gap: 8px; color: #6e5419; font-family: "DM Mono", monospace; font-size: 0.72rem; letter-spacing: 0.05em; text-transform: uppercase; }
+      .answer-label .answer-spark { display: grid; place-items: center; width: 24px; height: 24px; border-radius: 7px; background: var(--honey); color: var(--ink); font-size: 0.85rem; }
+      .answer-status { color: var(--muted); font-size: 0.77rem; text-align: right; }
+      .answer-question { margin: 25px 0; color: #5f574a; font-family: "Playfair Display", Georgia, serif; font-size: clamp(1.3rem, 2vw, 1.6rem); font-style: italic; line-height: 1.36; }
+      .comfort-card { display: flex; align-items: flex-start; gap: 12px; margin: 0 0 14px; padding: 16px 17px; border: 1px solid #ebcf76; border-radius: 14px; background: #fff9e7; }
+      .comfort-card .comfort-icon { display: grid; place-items: center; flex: 0 0 auto; width: 31px; height: 31px; border-radius: 10px; background: var(--honey); color: var(--ink); }
+      .comfort-card strong { display: block; margin-bottom: 3px; color: #5a4517; font-size: 0.82rem; }
+      .comfort-card span:last-child { color: #665b49; font-family: "Playfair Display", Georgia, serif; font-size: 1rem; line-height: 1.45; }
+      .answer-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+      .answer-card { padding: 22px; border: 1px solid #eee2c6; border-radius: 14px; background: #fffdf7; }
+      .answer-card--wide { grid-column: 1 / -1; }
+      .answer-card--law { grid-column: 1 / -1; border-color: #e7c15d; background: #fff6d6; }
+      .prototype-banner { display: inline-flex; margin: 0 0 10px; padding: 5px 8px; border-radius: 6px; background: #f8dfa1; color: #76530a; font-family: "DM Mono", monospace; font-size: 0.67rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; }
+      .answer-card h3 { display: flex; align-items: center; gap: 9px; margin: 0 0 10px; font-family: "Playfair Display", Georgia, serif; font-size: 1.25rem; letter-spacing: -0.035em; }
+      .answer-card h3 span { display: grid; place-items: center; width: 26px; height: 26px; border-radius: 7px; background: var(--pale-yellow); color: #87651d; font-family: "DM Sans", sans-serif; font-size: 0.78rem; }
+      .answer-card p { margin: 0; color: #625a4d; font-size: 0.9rem; line-height: 1.6; }
+      .answer-card ul, .answer-card ol { display: grid; gap: 8px; margin: 0; padding-left: 20px; color: #625a4d; font-size: 0.9rem; line-height: 1.55; }
+      .answer-card li::marker { color: #ad7f1d; font-weight: 700; }
+      .report-topic { margin: 0 0 9px; color: #82611c; font-family: "DM Mono", monospace; font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; }
+      .law-details { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px 26px; margin-top: 17px; }
+      .law-detail { display: grid; gap: 4px; }
+      .law-detail--wide { grid-column: 1 / -1; }
+      .law-detail-label { color: #86641e; font-family: "DM Mono", monospace; font-size: 0.68rem; letter-spacing: 0.06em; text-transform: uppercase; }
+      .law-detail-value { color: #51452d; font-size: 0.91rem; line-height: 1.55; }
+      .law-detail-value strong { color: var(--ink); }
+      .law-source { color: #765714; font-size: 0.87rem; font-weight: 700; text-decoration: underline; text-decoration-color: #d5ae46; text-underline-offset: 3px; }
+      .law-source::after { content: " ↗"; }
+      .checklist { list-style: none; padding: 0 !important; }
+      .checklist li { position: relative; padding-left: 26px; }
+      .checklist li::before { content: "✓"; position: absolute; left: 0; top: 0; display: grid; place-items: center; width: 17px; height: 17px; border-radius: 50%; background: var(--pale-yellow); color: #85621a; font-size: 0.68rem; font-weight: 700; }
+      .answer-card--warning { border-color: #e7d29d; background: #fffaf0; }
+      .answer-card--warning h3 span { background: #f7db8c; }
+      .follow-up { grid-column: 1 / -1; padding: 23px; border: 1px solid #ead18a; border-radius: 14px; background: #fff6d7; }
+      .follow-up h3 { margin: 0 0 7px; font-family: "Playfair Display", Georgia, serif; font-size: 1.3rem; letter-spacing: -0.035em; }
+      .follow-up > p { margin: 0 0 15px; color: #645a47; font-size: 0.88rem; line-height: 1.5; }
+      .follow-up-fields { display: grid; gap: 10px; }
+      .follow-up label { display: grid; gap: 6px; color: #5f5134; font-size: 0.84rem; font-weight: 600; }
+      .follow-up input { width: 100%; border: 1px solid #dfca8b; border-radius: 9px; outline-color: var(--gold); padding: 11px 12px; background: var(--white); color: var(--ink); }
+      .follow-up button { margin-top: 14px; }
+      .sources-empty { color: var(--muted); font-size: 0.85rem; }
+      .sources-list { display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; }
+      .sources-list a { color: #795a14; font-size: 0.88rem; font-weight: 600; text-decoration: underline; text-decoration-color: #d9bd6f; text-underline-offset: 3px; }
+      .sources-list a::after { content: " ↗"; }
+      .step-list { display: grid; gap: 14px; margin: 0; padding: 0; list-style: none; }
+      .step-list li { display: grid; grid-template-columns: 28px 1fr; gap: 10px; }
+      .step-number { display: grid; place-items: center; width: 25px; height: 25px; border-radius: 8px; background: var(--pale-yellow); color: #85621a; font-size: 0.74rem; font-weight: 700; }
+      .step-copy strong { display: block; margin-bottom: 2px; color: var(--ink); font-size: 0.9rem; }
+      .step-copy span { color: #625a4d; font-size: 0.88rem; line-height: 1.48; }
+      .resource-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+      .resource-card { padding: 13px; border: 1px solid #eee2c6; border-radius: 11px; background: #fffdf7; }
+      .resource-card strong { display: block; margin-bottom: 4px; color: #5d4310; font-size: 0.83rem; }
+      .resource-card span { color: #6d6455; font-size: 0.78rem; line-height: 1.4; }
+      .resource-note { margin: 0 0 12px !important; padding: 12px 13px; border: 1px solid #ead18a; border-radius: 11px; background: #fff6d7; color: #665a40 !important; font-size: 0.8rem !important; line-height: 1.5 !important; }
+      .resource-card .prototype-banner { margin-bottom: 8px; font-size: 0.6rem; }
+      .resource-details { display: grid; gap: 6px; margin: 0; }
+      .resource-details div { display: grid; grid-template-columns: 100px 1fr; gap: 7px; }
+      .resource-details dt { color: #886820; font-family: "DM Mono", monospace; font-size: 0.64rem; letter-spacing: 0.04em; text-transform: uppercase; }
+      .resource-details dd { margin: 0; color: #6d6455; font-size: 0.75rem; line-height: 1.38; }
+      .private-service { display: inline-block; margin-top: 4px; color: #76530a; font-size: 0.7rem; font-weight: 700; }
+      .disclaimer { display: flex; gap: 10px; margin: 18px 0 0; padding: 14px 16px; border-radius: 11px; background: var(--pale-yellow); color: #665a40; font-size: 0.78rem; line-height: 1.5; }
+      .disclaimer strong { color: var(--ink); }
+      .disclaimer-icon { color: #987022; font-size: 1rem; }
+      .loading-view { display: flex; align-items: center; justify-content: center; min-height: 310px; flex-direction: column; gap: 15px; text-align: center; }
+      .loading-mark { display: grid; place-items: center; width: 54px; height: 54px; border: 4px solid #f2e4bd; border-top-color: var(--gold); border-radius: 50%; animation: spin 900ms linear infinite; }
+      .loading-mark span { color: #b47d0a; animation: counterspin 900ms linear infinite; }
+      .loading-view h3 { margin: 0; font-family: "Playfair Display", Georgia, serif; font-size: 1.5rem; }
+      .loading-view p { max-width: 390px; margin: -6px 0 0; color: var(--muted); font-size: 0.88rem; line-height: 1.5; }
+      @keyframes spin { to { transform: rotate(360deg); } }
+      @keyframes counterspin { to { transform: rotate(-360deg); } }
+
+      .learn { padding: 20px 0 98px; }
+      .learn-layout { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 80px; }
+      .learn .section-heading h2 { max-width: 350px; }
+      .topic-list { border-top: 1px solid var(--line); }
+      .topic { display: flex; align-items: center; gap: 18px; padding: 19px 4px; border-bottom: 1px solid var(--line); }
+      .topic-number { font-family: "DM Mono", monospace; color: #a49781; font-size: 0.71rem; }
+      .topic-name { flex: 1; font-weight: 600; font-size: 1.02rem; }
+      .topic-arrow { color: var(--gold); font-size: 1.2rem; }
+      .topic:hover .topic-name { text-decoration: underline; text-decoration-color: #d6ac47; text-underline-offset: 4px; }
+
+      .site-footer { border-top: 1px solid var(--line); padding: 29px 0 35px; }
+      .footer-row { display: flex; justify-content: space-between; align-items: center; gap: 20px; color: var(--muted); font-size: 0.78rem; }
+      .footer-row .brand { color: var(--ink); font-size: 0.91rem; }
+      .footer-row .brand-mark { width: 27px; height: 27px; border-radius: 8px; }
+      .footer-row .brand-mark svg { width: 18px; height: 18px; }
+      .footer-links { display: flex; gap: 18px; }
+
+      @media (max-width: 800px) {
+        .nav-links { display: none; }
+        .menu-button { display: block; }
+        .nav-cta { display: none; }
+        .hero { padding: 51px 0 66px; }
+        .hero-layout, .start-box, .learn-layout { grid-template-columns: 1fr; }
+        .hero-layout { gap: 36px; }
+        .hero-art { min-height: 325px; max-width: 420px; width: 100%; margin: 0 auto; }
+        .art-main { right: 4px; }
+        .help { padding: 67px 0; }
+        .help-intro { display: block; }
+        .help-intro .lede { margin-top: 18px; }
+        .help-grid { grid-template-columns: 1fr; }
+        .help-card { min-height: 205px; }
+        .card-icon { margin-bottom: 28px; }
+        .start { padding: 66px 0; }
+        .start-box { gap: 26px; }
+        .learn { padding-bottom: 68px; }
+        .learn-layout { gap: 29px; }
+      }
+      @media (max-width: 500px) {
+        .container { width: min(100% - 34px, 1120px); }
+        .hero h1 { font-size: clamp(3.1rem, 16vw, 4.2rem); }
+        .hero-art { min-height: 292px; }
+        .art-main { top: 0; padding: 20px; }
+        .art-orbit { width: 270px; height: 270px; }
+        .art-badge { bottom: 5px; }
+        .question-input { align-items: stretch; flex-direction: column; padding: 8px; gap: 8px; }
+        .question-input input { padding: 8px 9px; min-height: 44px; }
+        .question-input select { padding: 8px 9px; min-height: 44px; }
+        .location-input { padding: 0 8px; }
+        .location-input input { padding: 0 9px; min-height: 0; }
+        .input-button { width: 100%; }
+        .submit-row { display: block; }
+        .answer-section { padding-bottom: 66px; }
+        .answer-shell { padding: 22px 17px; }
+        .answer-topline { align-items: flex-start; flex-direction: column; }
+        .answer-status { text-align: left; }
+        .answer-grid { grid-template-columns: 1fr; }
+        .answer-card--wide { grid-column: auto; }
+        .answer-card--law, .follow-up { grid-column: auto; }
+        .law-details { grid-template-columns: 1fr; }
+        .law-detail--wide { grid-column: auto; }
+        .resource-grid { grid-template-columns: 1fr; }
+        .footer-row { align-items: flex-start; flex-direction: column; }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container nav">
+        <a class="brand" href="#top" aria-label="Maria's Justice Hub home">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v15"/><path d="M5 7h14"/><path d="m7 7-3 6h6L7 7Z"/><path d="m17 7-3 6h6l-3-6Z"/><path d="M8 20h8"/></svg>
+          </span>
+          Maria's Justice Hub
+        </a>
+        <nav class="nav-links" aria-label="Main navigation">
+          <a href="#help">How it works</a>
+          <a href="#learn">Topics</a>
+          <a href="#about">About us</a>
+        </nav>
+        <button class="nav-cta ask-trigger" type="button">Ask a question <span aria-hidden="true">→</span></button>
+        <button class="menu-button" type="button" aria-label="Open menu" aria-expanded="false">
+          <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="hero">
+        <div class="container hero-layout">
+          <div>
+            <p class="eyebrow">Legal guidance, made human</p>
+            <h1>Have a problem?<em>Know your rights.</em></h1>
+            <p class="lede">Legal information can be confusing. Maria's Justice Hub helps you understand your situation in simple language and find possible next steps.</p>
+            <div class="hero-actions">
+              <button class="button-primary ask-trigger" type="button">Ask Maria's Justice Hub <span class="arrow" aria-hidden="true">→</span></button>
+              <a class="quiet-link" href="#help">See how it works</a>
+            </div>
+            <p class="hero-note"><span aria-hidden="true">i</span> Information for students, not legal advice.</p>
+            <div class="kind-stickers" aria-label="Gentle reminders">
+              <span class="kind-sticker">💛 You’re not alone.</span>
+              <span class="kind-sticker">🌿 One step at a time.</span>
+              <span class="kind-sticker">✨ It’s okay to ask.</span>
+            </div>
+          </div>
+          <div class="hero-art" aria-label="Illustration of an answer from Justice Hub">
+            <div class="art-orbit"></div>
+            <article class="art-card art-main">
+              <div class="art-topline"><span>MARIA'S JUSTICE HUB</span><span class="mini-spark">✦</span></div>
+              <p class="art-question">“Someone shared my photo without asking.”</p>
+              <div class="art-response"><span class="response-icon">✦</span><span>You may have options. Let’s look at what happened and what you can do next.</span></div>
+              <div class="art-lines" aria-hidden="true"><span></span><span></span><span></span></div>
+            </article>
+            <div class="art-card art-badge"><span class="badge-symbol">⚖</span><span>Simple answers.<br />Clear next steps.</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="help" id="help">
+        <div class="container">
+          <div class="help-intro">
+            <div class="section-heading">
+              <p class="eyebrow">A clearer place to start</p>
+              <h2>How can we help?</h2>
+            </div>
+            <p class="lede">No jargon. No pressure. Just a calm way to make sense of what’s happening.</p>
+          </div>
+          <div class="help-grid">
+            <article class="help-card">
+              <div class="card-icon" aria-hidden="true">💬</div>
+              <h3>Ask a question</h3>
+              <p>Tell us what happened, in your own words. Start anywhere you feel comfortable.</p>
+            </article>
+            <article class="help-card">
+              <div class="card-icon" aria-hidden="true">📖</div>
+              <h3>Understand the law</h3>
+              <p>Make complex legal information easier to understand, one clear idea at a time.</p>
+            </article>
+            <article class="help-card">
+              <div class="card-icon" aria-hidden="true">↗</div>
+              <h3>Find your next step</h3>
+              <p>Explore possible actions, support services, and resources that could help.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="start" id="ask">
+        <div class="container">
+          <div class="start-box">
+            <div>
+              <p class="eyebrow">Your question is a good place to begin</p>
+              <h2>Not sure what to do?<br />Start here.</h2>
+            </div>
+            <form class="question-form" id="question-form" novalidate>
+              <div class="form-fields">
+                <div>
+                  <label class="field-label" for="question">What happened?</label>
+                  <p class="gentle-note"><span aria-hidden="true">🤍</span> Take your time. You can write as much or as little as feels comfortable.</p>
+                  <label class="question-input" for="question">
+                    <textarea id="question" name="question" placeholder="Describe your situation in your own words. You don't need to know the legal terms." autocomplete="off" required></textarea>
+                  </label>
+                </div>
+                <div class="location-flow" id="location-flow">
+                  <div>
+                    <label class="field-label" for="location">Country</label>
+                    <label class="question-input location-input" for="location">
+                      <select id="location" name="location" required>
+                        <option value="">Select your country or region</option>
+                        <option value="Other">Other / territory not listed</option>
+                      </select>
+                    </label>
+                  </div>
+                  <div class="location-step other-location" id="other-location-wrap" hidden>
+                    <label class="field-label" for="other-location">Country or territory</label>
+                    <label class="question-input location-input" for="other-location">
+                      <input id="other-location" name="other-location" type="text" placeholder="Enter country or territory" autocomplete="country-name" />
+                    </label>
+                  </div>
+                  <div class="location-step" id="region-wrap" hidden>
+                    <label class="field-label" id="region-label" for="region">Province / State / Region</label>
+                    <label class="question-input location-input" for="region">
+                      <input id="region" name="region" type="text" list="region-options" placeholder="Select or enter your region" autocomplete="address-level1" />
+                    </label>
+                    <datalist id="region-options"></datalist>
+                  </div>
+                  <div class="location-step" id="city-wrap" hidden>
+                    <label class="field-label" id="city-label" for="city">City / Municipality</label>
+                    <label class="question-input location-input" for="city">
+                      <input id="city" name="city" type="text" placeholder="Select or enter your city" autocomplete="address-level2" />
+                    </label>
+                  </div>
+                  <div class="location-step" id="district-wrap" hidden>
+                    <label class="field-label" id="district-label" for="district">District / County / Area <span aria-hidden="true">(optional)</span></label>
+                    <label class="question-input location-input" for="district">
+                      <input id="district" name="district" type="text" placeholder="Select or enter your district or area" autocomplete="address-level3" />
+                    </label>
+                  </div>
+                </div>
+                <p class="location-caption">Legal rights and rules can be different depending on your location. You don't need to enter your exact address. A city or district is usually enough.</p>
+              </div>
+              <div class="submit-row"><button class="input-button" id="submit-question" type="submit">Ask Maria's Justice Hub →</button></div>
+              <p class="form-caption">Please leave out names and other identifying details.</p>
+              <p class="form-error" id="form-error" role="alert"></p>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <section class="answer-section" id="answer-section" hidden aria-live="polite">
+        <div class="container">
+          <div class="answer-shell" id="answer-shell"></div>
+        </div>
+      </section>
+
+      <section class="learn" id="learn">
+        <div class="container learn-layout">
+          <div class="section-heading">
+            <p class="eyebrow">Explore at your pace</p>
+            <h2>Learn about what matters to you.</h2>
+            <p class="lede">Start with a topic, or come back whenever you have a new question.</p>
+          </div>
+          <div class="topic-list">
+            <a class="topic" href="#ask"><span class="topic-number">01</span><span class="topic-name">Privacy &amp; your online life</span><span class="topic-arrow">→</span></a>
+            <a class="topic" href="#ask"><span class="topic-number">02</span><span class="topic-name">School, work &amp; fair treatment</span><span class="topic-arrow">→</span></a>
+            <a class="topic" href="#ask"><span class="topic-number">03</span><span class="topic-name">Housing &amp; living arrangements</span><span class="topic-arrow">→</span></a>
+            <a class="topic" href="#ask"><span class="topic-number">04</span><span class="topic-name">Getting help &amp; speaking up</span><span class="topic-arrow">→</span></a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer" id="about">
+      <div class="container footer-row">
+        <a class="brand" href="#top"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v15"/><path d="M5 7h14"/><path d="m7 7-3 6h6L7 7Z"/><path d="m17 7-3 6h6l-3-6Z"/><path d="M8 20h8"/></svg></span> Maria's Justice Hub</a>
+        <span>Understand your rights. Know your next step.</span>
+        <div class="footer-links"><a href="#top">Privacy</a><a href="#top">Support</a></div>
+      </div>
+    </footer>
+
+    <script>
+      // Legacy fixed-card response flow retained for reference only; app.js is the active flow.
+      if (false) {
+      const form = document.querySelector('#question-form');
+      const input = document.querySelector('#question');
+      const locationInput = document.querySelector('#location');
+      const submitButton = document.querySelector('#submit-question');
+      const errorMessage = document.querySelector('#form-error');
+      const answerSection = document.querySelector('#answer-section');
+      const answerShell = document.querySelector('#answer-shell');
+
+      document.querySelectorAll('.ask-trigger').forEach((button) => {
+        button.addEventListener('click', () => {
+          document.querySelector('#ask').scrollIntoView({ behavior: 'smooth', block: 'center' });
+          window.setTimeout(() => input.focus(), 450);
+        });
+      });
+
+      const showError = (message) => {
+        errorMessage.textContent = message;
+        answerSection.hidden = true;
+      };
+
+      const escapeText = (value) => String(value || '')
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;')
+        .replaceAll("'", '&#039;');
+      const asText = (value) => String(value || '');
+
+      const setLoading = () => {
+        answerSection.hidden = false;
+        answerShell.innerHTML = `
+          <div class="loading-view">
+            <div class="loading-mark" aria-hidden="true"><span>✦</span></div>
+            <h3>Justice Hub is analyzing your situation...</h3>
+            <p>We’re preparing general legal information for ${escapeText(locationInput.value.trim())}. This can take a moment.</p>
+          </div>`;
+        answerSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      };
+
+      const normaliseAnswer = (answer = {}) => ({
+        whatIUnderstand: asText(answer.whatIUnderstand),
+        possibleLegalTopics: Array.isArray(answer.possibleLegalTopics) ? answer.possibleLegalTopics.map(asText).filter(Boolean).slice(0, 5) : [],
+        whatYouCanDo: Array.isArray(answer.whatYouCanDo) ? answer.whatYouCanDo.map(asText).filter(Boolean).slice(0, 5) : [],
+        importantInformation: Array.isArray(answer.importantInformation) ? answer.importantInformation.map(asText).filter(Boolean).slice(0, 5) : [],
+        professionalHelp: asText(answer.professionalHelp),
+        sources: Array.isArray(answer.sources) ? answer.sources.filter((source) => {
+          try { return source && /^https?:$/.test(new URL(source.url).protocol) && source.title; } catch { return false; }
+        }).slice(0, 4) : [],
+      });
+
+      const list = (items, ordered = false) => {
+        const tag = ordered ? 'ol' : 'ul';
+        return `<${tag}>${items.map((item) => `<li>${escapeText(item)}</li>`).join('')}</${tag}>`;
+      };
+
+      const renderAnswer = (rawAnswer, question, responseMode) => {
+        const answer = normaliseAnswer(rawAnswer);
+        const sources = answer.sources.length
+          ? `<ul class="sources-list">${answer.sources.map((source) => `<li><a href="${escapeText(encodeURI(source.url))}" target="_blank" rel="noopener noreferrer">${escapeText(source.title)}</a></li>`).join('')}</ul>`
+          : '<p class="sources-empty">No location-specific source was returned. Check an official government, court, or legal-aid service in your area before relying on general information.</p>';
+        const modeNote = responseMode === 'demo' ? 'Demo response — connect an API key for a live AI answer.' : 'General legal information, tailored to the location you provided.';
+
+        answerShell.innerHTML = `
+          <div class="answer-topline">
+            <span class="answer-label"><span class="answer-spark">✦</span> Justice Hub response</span>
+            <span class="answer-status">${modeNote}</span>
+          </div>
+          <p class="answer-question">“${escapeText(question)}”</p>
+          <div class="answer-grid">
+            <article class="answer-card answer-card--wide"><h3><span>1</span>What I Understand</h3><p>${escapeText(answer.whatIUnderstand)}</p></article>
+            <article class="answer-card"><h3><span>2</span>Possible Legal Topics</h3>${answer.possibleLegalTopics.length ? list(answer.possibleLegalTopics) : '<p>It may help to review the rules and support services that apply where you live.</p>'}</article>
+            <article class="answer-card"><h3><span>3</span>What You Can Do</h3>${answer.whatYouCanDo.length ? list(answer.whatYouCanDo, true) : '<p>Consider saving relevant information and speaking to a trusted support service.</p>'}</article>
+            <article class="answer-card"><h3><span>4</span>Important Information</h3>${answer.importantInformation.length ? list(answer.importantInformation) : '<p>Rules and deadlines may vary depending on the facts and your location.</p>'}</article>
+            <article class="answer-card"><h3><span>5</span>Professional Help</h3><p>${escapeText(answer.professionalHelp)}</p></article>
+            <article class="answer-card answer-card--wide"><h3><span>6</span>Sources</h3>${sources}</article>
+          </div>
+          <p class="disclaimer"><span class="disclaimer-icon">⚖</span><span><strong>Justice Hub provides general legal information and is not a substitute for professional legal advice.</strong> Laws, facts, and available options may differ depending on your location.</span></p>`;
+      };
+
+      const buildDemoAnswer = (question, location) => {
+        const text = question.toLowerCase();
+        const isPrivacy = /photo|picture|image|post|online|social|video|private/.test(text);
+        const isSchoolWork = /school|teacher|class|work|job|boss|pay|employer/.test(text);
+        const topic = isPrivacy ? 'privacy, image rights, or online-content rules' : isSchoolWork ? 'school or workplace policies, fair treatment, or employment rules' : 'consumer, civil, school, or local community rules';
+        return {
+          whatIUnderstand: `You described a situation that may affect your rights or wellbeing in ${location}. The details, evidence, and local rules could all matter.`,
+          possibleLegalTopics: [topic, 'reporting or complaint processes', 'the role of school, platform, or local policies'],
+          whatYouCanDo: isPrivacy ? ['Save screenshots, links, dates, and any messages before content changes.', 'Use the platform’s reporting tools and keep a record of the report.', 'Ask a trusted adult, school support person, or local advice service to help you decide what to do next.', `Check ${location}-specific privacy or image-sharing guidance through an official source.`] : ['Write down what happened, when it happened, and who was involved.', 'Keep relevant messages, receipts, screenshots, or other records.', 'Check the policy of the school, organisation, platform, or service involved.', 'Talk to a trusted adult or a local legal-aid or advice service about options in your area.'],
+          importantInformation: ['Avoid sharing names, addresses, account passwords, or other identifying details in public.', 'Deadlines and reporting routes may apply, so saving evidence early may be helpful.', 'If you feel unsafe or are in immediate danger, contact local emergency services or a trusted adult right away.'],
+          professionalHelp: `A qualified lawyer, community legal centre, legal-aid organisation, trusted adult, or appropriate local support service in ${location} can explain how the rules may apply to your specific situation.`,
+          sources: [],
+        };
+      };
+
+      const requestAnswer = async (question, location) => {
+        const response = await fetch('/api/justice', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ question, location }),
+        });
+        const data = await response.json().catch(() => ({}));
+        if (!response.ok) throw new Error(data.error || 'We could not process your question right now. Please try again.');
+        return data;
+      };
+
+      form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        const question = input.value.trim();
+        const location = locationInput.value.trim();
+        errorMessage.textContent = '';
+        if (!question) return showError('Please describe what happened before asking Justice Hub.');
+        if (!location) return showError('Please add your country or region so we can avoid giving location-specific information without context.');
+
+        submitButton.disabled = true;
+        submitButton.textContent = 'Analyzing…';
+        setLoading();
+        try {
+          const result = await requestAnswer(question, location);
+          renderAnswer(result.answer, question, result.mode);
+        } catch (error) {
+          const isPreview = window.location.protocol === 'file:' || error.message.includes('Failed to fetch') || error.message.includes('Unexpected token');
+          if (isPreview) {
+            renderAnswer(buildDemoAnswer(question, location), question, 'demo');
+          } else {
+            answerSection.hidden = true;
+            showError(error.message || 'We couldn’t process your question right now. Please try again.');
+          }
+        } finally {
+          submitButton.disabled = false;
+          submitButton.textContent = 'Ask Justice Hub →';
+        }
+      });
+      }
+    </script>
+    <script>
+      (() => {
+        const form = document.querySelector('#question-form');
+        const questionInput = document.querySelector('#question');
+        const locationSelect = document.querySelector('#location');
+        const otherLocationWrap = document.querySelector('#other-location-wrap');
+        const otherLocationInput = document.querySelector('#other-location');
+        const regionWrap = document.querySelector('#region-wrap');
+        const regionInput = document.querySelector('#region');
+        const regionLabel = document.querySelector('#region-label');
+        const cityWrap = document.querySelector('#city-wrap');
+        const cityInput = document.querySelector('#city');
+        const cityLabel = document.querySelector('#city-label');
+        const districtWrap = document.querySelector('#district-wrap');
+        const districtInput = document.querySelector('#district');
+        const districtLabel = document.querySelector('#district-label');
+        const submitButton = document.querySelector('#submit-question');
+        const formError = document.querySelector('#form-error');
+        const answerSection = document.querySelector('#answer-section');
+        const answerShell = document.querySelector('#answer-shell');
+
+        const escapeHtml = (value) => String(value || '')
+          .replaceAll('&', '&amp;')
+          .replaceAll('<', '&lt;')
+          .replaceAll('>', '&gt;')
+          .replaceAll('"', '&quot;')
+          .replaceAll("'", '&#039;');
+
+        const countries = `Afghanistan|Albania|Algeria|Andorra|Angola|Antigua and Barbuda|Argentina|Armenia|Australia|Austria|Azerbaijan|Bahamas|Bahrain|Bangladesh|Barbados|Belarus|Belgium|Belize|Benin|Bhutan|Bolivia|Bosnia and Herzegovina|Botswana|Brazil|Brunei|Bulgaria|Burkina Faso|Burundi|Cabo Verde|Cambodia|Cameroon|Canada|Central African Republic|Chad|Chile|China|Colombia|Comoros|Congo, Democratic Republic of the|Congo, Republic of the|Costa Rica|Côte d’Ivoire|Croatia|Cuba|Cyprus|Czechia|Denmark|Djibouti|Dominica|Dominican Republic|Ecuador|Egypt|El Salvador|Equatorial Guinea|Eritrea|Estonia|Eswatini|Ethiopia|Fiji|Finland|France|Gabon|Gambia|Georgia|Germany|Ghana|Greece|Grenada|Guatemala|Guinea|Guinea-Bissau|Guyana|Haiti|Holy See|Honduras|Hungary|Iceland|India|Indonesia|Iran|Iraq|Ireland|Israel|Italy|Jamaica|Japan|Jordan|Kazakhstan|Kenya|Kiribati|Korea, North|Korea, South|Kuwait|Kyrgyzstan|Laos|Latvia|Lebanon|Lesotho|Liberia|Libya|Liechtenstein|Lithuania|Luxembourg|Madagascar|Malawi|Malaysia|Maldives|Mali|Malta|Marshall Islands|Mauritania|Mauritius|Mexico|Micronesia|Moldova|Monaco|Mongolia|Montenegro|Morocco|Mozambique|Myanmar|Namibia|Nauru|Nepal|Netherlands|New Zealand|Nicaragua|Niger|Nigeria|North Macedonia|Norway|Oman|Pakistan|Palau|Palestine|Panama|Papua New Guinea|Paraguay|Peru|Philippines|Poland|Portugal|Qatar|Romania|Russia|Rwanda|Saint Kitts and Nevis|Saint Lucia|Saint Vincent and the Grenadines|Samoa|San Marino|Sao Tome and Principe|Saudi Arabia|Senegal|Serbia|Seychelles|Sierra Leone|Singapore|Slovakia|Slovenia|Solomon Islands|Somalia|South Africa|South Sudan|Spain|Sri Lanka|Sudan|Suriname|Sweden|Switzerland|Syria|Tajikistan|Tanzania|Thailand|Timor-Leste|Togo|Tonga|Trinidad and Tobago|Tunisia|Turkey|Turkmenistan|Tuvalu|Uganda|Ukraine|United Arab Emirates|United Kingdom|United States|Uruguay|Uzbekistan|Vanuatu|Venezuela|Vietnam|Yemen|Zambia|Zimbabwe`.split('|');
+        const regionOptions = Object.freeze({
+          China: `Anhui|Beijing|Chongqing|Fujian|Gansu|Guangdong|Guangxi|Guizhou|Hainan|Hebei|Heilongjiang|Henan|Hubei|Hunan|Inner Mongolia|Jiangsu|Jiangxi|Jilin|Liaoning|Macau SAR|Ningxia|Qinghai|Shaanxi|Shandong|Shanghai|Shanxi|Sichuan|Tianjin|Tibet|Xinjiang|Yunnan|Zhejiang|Hong Kong SAR|Taiwan`.split('|'),
+          Thailand: `Amnat Charoen|Ang Thong|Bangkok|Bueng Kan|Buri Ram|Chachoengsao|Chai Nat|Chaiyaphum|Chanthaburi|Chiang Mai|Chiang Rai|Chon Buri|Chumphon|Kalasin|Kamphaeng Phet|Kanchanaburi|Khon Kaen|Krabi|Lampang|Lamphun|Loei|Lop Buri|Mae Hong Son|Maha Sarakham|Mukdahan|Nakhon Nayok|Nakhon Pathom|Nakhon Phanom|Nakhon Ratchasima|Nakhon Sawan|Nakhon Si Thammarat|Nan|Narathiwat|Nong Bua Lamphu|Nong Khai|Nonthaburi|Pathum Thani|Pattani|Phang Nga|Phatthalung|Phayao|Phetchabun|Phetchaburi|Phichit|Phitsanulok|Phra Nakhon Si Ayutthaya|Phrae|Phuket|Prachin Buri|Prachuap Khiri Khan|Ranong|Ratchaburi|Rayong|Roi Et|Sa Kaeo|Sakon Nakhon|Samut Prakan|Samut Sakhon|Samut Songkhram|Saraburi|Satun|Sing Buri|Sisaket|Songkhla|Sukhothai|Suphan Buri|Surat Thani|Surin|Tak|Trang|Trat|Ubon Ratchathani|Udon Thani|Uthai Thani|Uttaradit|Yala|Yasothon`.split('|'),
+          'United States': `Alabama|Alaska|Arizona|Arkansas|California|Colorado|Connecticut|Delaware|District of Columbia|Florida|Georgia|Hawaii|Idaho|Illinois|Indiana|Iowa|Kansas|Kentucky|Louisiana|Maine|Maryland|Massachusetts|Michigan|Minnesota|Mississippi|Missouri|Montana|Nebraska|Nevada|New Hampshire|New Jersey|New Mexico|New York|North Carolina|North Dakota|Ohio|Oklahoma|Oregon|Pennsylvania|Rhode Island|South Carolina|South Dakota|Tennessee|Texas|Utah|Vermont|Virginia|Washington|West Virginia|Wisconsin|Wyoming`.split('|'),
+          Canada: `Alberta|British Columbia|Manitoba|New Brunswick|Newfoundland and Labrador|Northwest Territories|Nova Scotia|Nunavut|Ontario|Prince Edward Island|Quebec|Saskatchewan|Yukon`.split('|'),
+          Australia: `Australian Capital Territory|New South Wales|Northern Territory|Queensland|South Australia|Tasmania|Victoria|Western Australia`.split('|'),
+          India: `Andhra Pradesh|Arunachal Pradesh|Assam|Bihar|Chhattisgarh|Goa|Gujarat|Haryana|Himachal Pradesh|Jharkhand|Karnataka|Kerala|Madhya Pradesh|Maharashtra|Manipur|Meghalaya|Mizoram|Nagaland|Odisha|Punjab|Rajasthan|Sikkim|Tamil Nadu|Telangana|Tripura|Uttar Pradesh|Uttarakhand|West Bengal|Delhi|Jammu and Kashmir|Ladakh|Puducherry`.split('|'),
+        });
+        const regionDatalist = document.querySelector('#region-options');
+        const addCountryOptions = () => {
+          const otherOption = locationSelect.querySelector('option[value="Other"]');
+          countries.forEach((country) => {
+            const option = document.createElement('option');
+            option.value = country;
+            option.textContent = country;
+            locationSelect.insertBefore(option, otherOption);
+          });
+        };
+        const updateRegionOptions = () => {
+          const regions = regionOptions[locationSelect.value] || [];
+          regionDatalist.innerHTML = regions.map((region) => `<option value="${escapeHtml(region)}"></option>`).join('');
+        };
+
+        // Labels and example placeholders are metadata only. A future geographic dataset/API can replace
+        // these text fields with searchable, validated options without changing the answer flow.
+        const locationSchemas = Object.freeze({
+          China: {
+            regionLabel: 'Province / Autonomous Region / Municipality',
+            regionPlaceholder: 'For example: Guangdong',
+            cityLabel: 'City / Municipality',
+            cityPlaceholder: 'For example: Guangzhou',
+            districtLabel: 'District / County / Area',
+            districtPlaceholder: 'For example: Tianhe',
+          },
+          Thailand: {
+            regionLabel: 'Province',
+            regionPlaceholder: 'For example: Chiang Mai',
+            cityLabel: 'City / Municipality',
+            cityPlaceholder: 'For example: Chiang Mai',
+            districtLabel: 'District / Area',
+            districtPlaceholder: 'For example: Mueang Chiang Mai',
+          },
+          'United States': {
+            regionLabel: 'State',
+            regionPlaceholder: 'For example: Texas',
+            cityLabel: 'City / Municipality',
+            cityPlaceholder: 'For example: Houston',
+            districtLabel: 'County / Area',
+            districtPlaceholder: 'For example: Harris County',
+          },
+          Other: {
+            regionLabel: 'State / Province / Region',
+            regionPlaceholder: 'Select or enter your region',
+            cityLabel: 'City / Municipality',
+            cityPlaceholder: 'Select or enter your city',
+            districtLabel: 'District / County / Area',
+            districtPlaceholder: 'Select or enter your district or area',
+          },
+        });
+
+        const currentLocationSchema = () => locationSchemas[locationSelect.value] || locationSchemas.Other;
+
+        const updateLocationLabels = () => {
+          const schema = currentLocationSchema();
+          updateRegionOptions();
+          regionLabel.textContent = schema.regionLabel;
+          regionInput.placeholder = schema.regionPlaceholder;
+          cityLabel.textContent = schema.cityLabel;
+          cityInput.placeholder = schema.cityPlaceholder;
+          districtLabel.innerHTML = `${escapeHtml(schema.districtLabel)} <span aria-hidden="true">(optional)</span>`;
+          districtInput.placeholder = schema.districtPlaceholder;
+        };
+
+        const resetRegionalFields = () => {
+          regionInput.value = '';
+          cityInput.value = '';
+          districtInput.value = '';
+        };
+
+        const updateLocationFlow = () => {
+          const selectedCountry = locationSelect.value;
+          const isOther = selectedCountry === 'Other';
+          otherLocationWrap.hidden = !isOther;
+          otherLocationInput.required = isOther;
+          if (!isOther) otherLocationInput.value = '';
+
+          const hasCountry = Boolean(selectedCountry) && (!isOther || Boolean(otherLocationInput.value.trim()));
+          regionWrap.hidden = !hasCountry;
+          if (!hasCountry) {
+            resetRegionalFields();
+            cityWrap.hidden = true;
+            districtWrap.hidden = true;
+            return;
+          }
+
+          const hasRegion = Boolean(regionInput.value.trim());
+          cityWrap.hidden = !hasRegion;
+          if (!hasRegion) {
+            cityInput.value = '';
+            districtInput.value = '';
+            districtWrap.hidden = true;
+            return;
+          }
+
+          const hasCity = Boolean(cityInput.value.trim());
+          districtWrap.hidden = !hasCity;
+          if (!hasCity) districtInput.value = '';
+        };
+
+        const selectedLocationData = () => ({
+          country: locationSelect.value === 'Other' ? otherLocationInput.value.trim() : locationSelect.value,
+          region: regionInput.value.trim(),
+          city: cityInput.value.trim(),
+          district: districtInput.value.trim(),
+        });
+
+        const formatLocation = ({ country, region, city, district }) => [district, city, region, country].filter(Boolean).join(' · ');
+
+        // This is the exact shape a future backend can receive. No location is sent anywhere in prototype mode.
+        const buildFutureRequest = (question, location) => ({
+          question,
+          country: location.country,
+          region: location.region,
+          city: location.city,
+          district: location.district,
+        });
+
+        const showError = (message) => {
+          formError.textContent = message;
+          answerSection.hidden = true;
+        };
+
+        const showLoading = () => {
+          answerSection.hidden = false;
+          answerShell.innerHTML = `
+            <div class="loading-view">
+              <div class="loading-mark" aria-hidden="true"><span>✦</span></div>
+              <h3>Maria's Justice Hub is preparing your response...</h3>
+              <p>Looking at the situation you described and the location you selected.</p>
+            </div>`;
+          answerSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        };
+
+        const resourceCards = (location, topic = 'general') => {
+          const demoResource = ({ name, type, purpose, privateService = false }) => ({
+            name: `DEMO RESOURCE — ${name}`,
+            type,
+            purpose,
+            location,
+            privateService,
+            website: 'Not connected in this prototype',
+            contact: 'Not connected in this prototype',
+            source: 'A verified official directory or organisation source will be required before this resource can go live.',
+            verification: 'Unverified demo placeholder',
+            lastChecked: 'Not available — live resource database not connected',
+          });
+
+          const collections = {
+            labour: [
+              demoResource({ name: 'Labour authority', type: 'Government resource', purpose: 'Employment, wage, workplace, and labour-contract concerns.' }),
+              demoResource({ name: 'Employment legal aid', type: 'Legal aid', purpose: 'General labour-law information and support identifying possible next steps.' }),
+              demoResource({ name: 'Employment-law professional', type: 'Qualified legal professional', purpose: 'Advice on the specific employment facts and local process.', privateService: true }),
+              demoResource({ name: 'Community worker support', type: 'Support organization', purpose: 'Local support while you consider an appropriate official or legal route.' }),
+            ],
+            consumer: [
+              demoResource({ name: 'Consumer-protection authority', type: 'Government resource', purpose: 'Consumer, refund, delivery, or seller concerns.' }),
+              demoResource({ name: 'Consumer legal aid', type: 'Legal aid', purpose: 'General help assessing a consumer dispute.' }),
+              demoResource({ name: 'Consumer-law professional', type: 'Qualified legal professional', purpose: 'Advice on a complex or high-value consumer dispute.', privateService: true }),
+            ],
+            online: [
+              demoResource({ name: 'Online reporting guidance', type: 'Government resource', purpose: 'Potential reporting options for online privacy, content, or safety concerns.' }),
+              demoResource({ name: 'Privacy legal aid', type: 'Legal aid', purpose: 'General information about online privacy or content concerns.' }),
+              demoResource({ name: 'Privacy-law professional', type: 'Qualified legal professional', purpose: 'Advice where the impact is serious or the facts are complex.', privateService: true }),
+            ],
+            safety: [
+              demoResource({ name: 'Appropriate emergency or reporting service', type: 'Safety / reporting', purpose: 'Immediate safety support where there is a current risk.' }),
+              demoResource({ name: 'Official safety authority', type: 'Government resource', purpose: 'Official reporting or protection information.' }),
+              demoResource({ name: 'Safety legal aid', type: 'Legal aid', purpose: 'Information about possible protective or legal steps.' }),
+              demoResource({ name: 'Local support organization', type: 'Support organization', purpose: 'Safe local support while you decide what to do next.' }),
+            ],
+            school: [
+              demoResource({ name: 'Education authority guidance', type: 'Government resource', purpose: 'Information about applicable education or school-process routes.' }),
+              demoResource({ name: 'Student legal aid', type: 'Legal aid', purpose: 'General support understanding student rights and procedures.' }),
+              demoResource({ name: 'School or community support', type: 'Support organization', purpose: 'A trusted adult, counsellor, or community support route.' }),
+            ],
+            general: [
+              demoResource({ name: 'Appropriate official authority', type: 'Government resource', purpose: 'The most relevant official route depends on the legal issue.' }),
+              demoResource({ name: 'Local legal aid', type: 'Legal aid', purpose: 'General legal information and help identifying next steps.' }),
+              demoResource({ name: 'Qualified legal professional', type: 'Qualified legal professional', purpose: 'Advice tailored to the complete facts and applicable law.', privateService: true }),
+              demoResource({ name: 'Local support organization', type: 'Support organization', purpose: 'Community or trusted-person support while you seek help.' }),
+            ],
+          };
+
+          return collections[topic] || collections.general;
+        };
+
+        const hasEnoughDetail = (question) => {
+          const value = question.trim().toLowerCase();
+          const chineseCharacters = (value.match(/[\u3400-\u9fff]/g) || []).length;
+          return (value.length >= 25 || chineseCharacters >= 8) && !/^(help|please help|what do i do|i have a problem|帮帮我|救救我|我有问题)[?.! ]*$/.test(value);
+        };
+
+        // This clearly labelled prototype response is the single replacement point for a future AI/legal API.
+        // The China labour rules below are limited to articles contained in the verified source file supplied to Justice Hub.
+        const chinaLabourLaw = (article, description, why) => ({
+          label: 'VERIFIED SOURCE · China labour law',
+          name: `China Labour Contract Law — Article ${article}`,
+          description,
+          why,
+          source: `Justice Hub verified source: Labour_Contract_Law_China.xlsx · Article ${article}`,
+          sourceUrl: './Labour_Contract_Law_China.xlsx',
+        });
+
+        const makeChinaLabourReport = (question, location, common, locationData) => {
+          if (locationData.country !== 'China') return null;
+
+          const lower = question.toLowerCase();
+          const isLabourContext = /employer|boss|manager|employee|co-?worker|workplace|employment|labou?r|payroll|wage|salary|overtime|probation|social insurance|work contract|employment contract|written contract|劳动|雇主|老板|工作单位|员工|工资|薪资|加班|试用|社保|社会保险|劳动合同|入职|离职|辞退|解雇/.test(lower)
+            || /(work|working|job|contract).{0,40}(contract|employ|pay|wage|salary|overtime|probation)/.test(lower)
+            || /(contract|employ|pay|wage|salary|overtime|probation).{0,40}(work|working|job)/.test(lower)
+            || /(company|employer|boss|manager).{0,40}(fired|dismissed|termination|terminated|laid off|layoff)/.test(lower)
+            || /quit|resign|leave.*(job|work)|辞职|离职/.test(lower);
+
+          if (!isLabourContext) return null;
+
+          const report = ({ title, understand, relevant, law, steps, evidence, resourceTopic = 'labour' }) => ({
+            ...common,
+            resources: resourceCards(location, resourceTopic),
+            status: 'answer',
+            title,
+            understand,
+            relevant,
+            law,
+            steps,
+            evidence,
+          });
+
+          if (/overtime|extra hours|work late|forced.*work|加班|超时/.test(lower)) {
+            return report({
+              title: 'Your working hours and overtime pay may need attention',
+              understand: `From what you've described, your employer in ${location} may be asking you to work overtime or may not have paid for overtime work.`,
+              relevant: 'This may involve working hours, whether overtime was voluntary, and overtime pay. The full facts and any applicable local rules may matter.',
+              law: chinaLabourLaw('31', 'Article 31 says that an employer must strictly implement labour-quota standards, must not force or disguise force for overtime work, and must pay overtime pay in accordance with State rules when overtime is arranged.', 'This may be relevant if you were required to work extra hours or if your overtime pay is in question. It does not decide what is owed in your specific situation.'),
+              steps: [
+                ['Keep a record of hours', 'Save shift schedules, timesheets, clock-in records, messages, and any instruction to work extra hours.'],
+                ['Compare records with pay', 'Keep payslips and bank records so you can see whether recorded overtime appears in your pay.'],
+                ['Ask for clarification in writing', 'If it feels safe, ask your employer how the overtime was recorded and paid, and keep a copy of the response.'],
+                ['Get local support', 'A qualified labour adviser, lawyer, or appropriate labour authority may explain the next route available in your area.'],
+              ],
+              evidence: ['Timesheets, schedules, or clock-in records', 'Messages about overtime or work instructions', 'Payslips and bank-payment records', 'Your employment contract or staff handbook'],
+            });
+          }
+
+          if (/not paid|unpaid|hasn.t paid|haven.t paid|paycheck|wages?|salary|工资|薪资|薪水|拖欠|欠薪/.test(lower) && !/probation|trial period|试用期|social insurance|social security|insurance contribution|社保|社会保险/.test(lower)) {
+            return report({
+              title: 'Your pay may not have been made in full or on time',
+              understand: `From what you've described, your employer in ${location} may not have paid some or all of your wages.`,
+              relevant: 'This may concern an employer’s obligation to pay wages in full and on time. The amount, dates, contract terms, and local process may all matter.',
+              law: chinaLabourLaw('30', 'Article 30 says that an employer must pay labour remuneration in full and on time in accordance with the labour contract and State regulations. It also says a worker may apply to the local people’s court for a payment order where remuneration is unpaid or underpaid.', 'This may be relevant if wages were late, missing, or incomplete. Whether a payment order or another route is suitable depends on the facts and local procedure.'),
+              steps: [
+                ['Keep pay records', 'Save your contract, payslips, bank records, timesheets, and messages about the amount and date of payment.'],
+                ['Ask for payment in writing', 'If it feels safe, clearly ask what is owed and when it will be paid. Keep a copy of the request and any response.'],
+                ['Record a clear timeline', 'Write down each pay period, the amount expected, the amount received, and any explanation given.'],
+                ['Seek local labour advice', 'A qualified labour adviser, lawyer, or appropriate labour authority may help you understand available complaint, mediation, arbitration, or court options.'],
+              ],
+              evidence: ['Employment contract or written pay agreement', 'Payslips and bank-payment records', 'Work schedules or timesheets', 'Messages about missing or delayed pay'],
+            });
+          }
+
+          if (/no .*contract|without .*contract|didn.t sign|never signed|not.*written contract|written contract|未签|没签|书面合同|劳动合同/.test(lower)) {
+            return report({
+              title: 'Your employment may need a written contract',
+              understand: `From what you've described, you may have started work in ${location} without receiving or signing a written labour contract.`,
+              relevant: 'This may involve when a written labour contract should be made and what documents show your working relationship.',
+              law: chinaLabourLaw('10', 'Article 10 says that a written labour contract should be concluded when an employment relationship is established. If work has already started without one, it should be concluded within one month from the first day of work.', 'This may be relevant if you have begun work but do not have a written labour contract. Your start date and the documents you received can be important.'),
+              steps: [
+                ['Keep proof of your start date', 'Save offer messages, schedules, work chats, clock-in records, and payments that show when work began.'],
+                ['Ask for the written contract', 'If it feels safe, ask for a written contract and a copy for your records before signing.'],
+                ['Read before signing', 'Check the job, pay, location, working hours, and dates. Do not sign a blank or inaccurate document.'],
+                ['Get tailored help if needed', 'A qualified labour adviser, lawyer, or appropriate labour authority may explain the next step for your situation.'],
+              ],
+              evidence: ['Offer letter or recruitment messages', 'Shift schedules, clock-in records, or work chats', 'Bank records showing payment for work', 'Any draft contract or document you were asked to sign'],
+            });
+          }
+
+          if (/probation|trial period|试用期/.test(lower) && /pay|paid|wage|salary|工资|薪资|薪水/.test(lower)) {
+            return report({
+              title: 'Your pay during probation may need checking',
+              understand: `From what you've described, you may be concerned about the wage you receive during a probation period in ${location}.`,
+              relevant: 'This may involve probation pay, the wage stated in your contract, comparable roles, and the local minimum-wage standard.',
+              law: chinaLabourLaw('20', 'Article 20 says that probation pay must not be lower than the lowest wage for the same position at the employer or 80% of the wage agreed in the labour contract, and it must not be lower than the local minimum-wage standard.', 'This may be relevant where an employee believes their probation pay is too low. The exact comparison depends on the contract, role, and local minimum wage.'),
+              steps: [
+                ['Keep the written terms', 'Save the contract or offer that states your role, probation period, and agreed wage.'],
+                ['Keep pay evidence', 'Save payslips and bank records for each probation pay period.'],
+                ['Check the local minimum wage', 'Use an official local source or qualified adviser to check the minimum-wage standard for your area.'],
+                ['Ask for local advice', 'A qualified labour adviser, lawyer, or appropriate labour authority may help compare the figures.'],
+              ],
+              evidence: ['Employment contract or offer letter', 'Payslips and bank-payment records', 'Role description and comparable-pay information if available', 'Official local minimum-wage information'],
+            });
+          }
+
+          if (/probation|trial period|试用期/.test(lower)) {
+            return report({
+              title: 'Your probation period may need checking',
+              understand: `From what you've described, you may be concerned about the length or terms of a probation period in ${location}.`,
+              relevant: 'This may involve the length of your contract, whether this is a repeat probation period with the same employer, and the written terms you were given.',
+              law: chinaLabourLaw('19', 'Article 19 sets maximum probation periods based on the length of the labour contract: up to one month for contracts of three months to under one year, up to two months for contracts of one to under three years, and up to six months for fixed-term contracts of three years or more or open-ended contracts. It also says the same employer and worker may agree to probation only once.', 'This may be relevant if your probation seems too long or has been imposed more than once. The contract type and length are important.'),
+              steps: [
+                ['Keep the contract terms', 'Save the contract or offer letter that states the contract length and probation dates.'],
+                ['Make a simple timeline', 'Write down your start date, probation start and end dates, and any previous work with the same employer.'],
+                ['Ask for an explanation in writing', 'If it feels safe, ask the employer to explain how the probation period was calculated.'],
+                ['Get local advice', 'A qualified labour adviser, lawyer, or appropriate labour authority may help you compare the terms with the relevant rules.'],
+              ],
+              evidence: ['Employment contract or offer letter', 'Messages about probation dates or extensions', 'Records of earlier employment with the same employer', 'Payslips or payroll records'],
+            });
+          }
+
+          if (/passport|identity card|id card|\bid\b|deposit|bond|fee|身份证|证件|押金|担保|收费/.test(lower)) {
+            return report({
+              title: 'A recruitment deposit or retained identity document may be concerning',
+              understand: `From what you've described, an employer or recruiter in ${location} may have asked for money, a guarantee, or an identity document.`,
+              relevant: 'This may involve recruitment practices, identity documents, deposits, or fees connected with starting work.',
+              law: chinaLabourLaw('9', 'Article 9 says that an employer must not retain a worker’s resident identity card or other documents, and must not require a worker to provide a guarantee or collect property from them under another name.', 'This may be relevant if an employer or recruiter kept your identity document or asked you to pay a deposit or fee. The details and who made the request matter.'),
+              steps: [
+                ['Keep a record of the request', 'Save messages, receipts, and details of any document or money requested or kept.'],
+                ['Avoid handing over original documents', 'If possible, keep your originals. If an original has already been retained, ask for it back in a way that feels safe.'],
+                ['Do not pay unexplained fees', 'Ask for a written explanation and receipt before making any payment.'],
+                ['Seek appropriate support', 'A qualified labour adviser, lawyer, or appropriate labour authority may explain a safe next route.'],
+              ],
+              evidence: ['Messages requesting documents, deposits, or fees', 'Receipts or transfer records', 'A copy or description of any retained document', 'Recruitment advert or offer letter'],
+            });
+          }
+
+          if (/social insurance|social security|insurance contribution|社保|社会保险/.test(lower)) {
+            return report({
+              title: 'Your social-insurance contributions may need checking',
+              understand: `From what you've described, your employer in ${location} may not have made social-insurance contributions as required.`,
+              relevant: 'This may involve social-insurance contributions and, depending on the facts, a worker’s right to end a labour contract.',
+              law: chinaLabourLaw('38', 'Article 38 lists circumstances in which a worker may terminate a labour contract, including where an employer has not paid social-insurance contributions for the worker in accordance with the law.', 'This may be relevant if required social-insurance contributions are missing. Whether this provision applies depends on the facts and the applicable process.'),
+              steps: [
+                ['Keep contribution records', 'Save any contribution statements, payslips, contract terms, and messages about social insurance.'],
+                ['Ask for clarification', 'If it feels safe, ask the employer in writing whether contributions were made and for which periods.'],
+                ['Check an official local record', 'Use an official service or qualified adviser to check the contribution history that applies to you.'],
+                ['Get tailored advice before ending work', 'A qualified labour adviser or lawyer can explain whether a particular reason and procedure for ending the contract may apply.'],
+              ],
+              evidence: ['Social-insurance contribution statements', 'Employment contract and payslips', 'Messages with the employer', 'A timeline of any missing periods'],
+            });
+          }
+
+          if (/quit|resign|leave.*job|leave.*work|notice|辞职|离职|辞去/.test(lower)) {
+            return report({
+              title: 'You may need to give notice before leaving your job',
+              understand: `From what you've described, you may be considering resigning from a job in ${location}.`,
+              relevant: 'This may involve notice, your probation status, and the contract terms. Other facts can change which options are relevant.',
+              law: chinaLabourLaw('37', 'Article 37 says that a worker may terminate a labour contract by giving the employer 30 days’ written notice. During probation, the article says a worker may terminate by giving three days’ notice.', 'This may be relevant if you want to resign. The written notice, your probation status, and any other facts may matter.'),
+              steps: [
+                ['Check your contract', 'Review the notice and probation terms in the contract or offer letter.'],
+                ['Keep written notice', 'If you decide to resign, keep a dated copy and proof that you gave it to the employer.'],
+                ['Keep pay and handover records', 'Save payslips, outstanding-pay details, and any handover instructions.'],
+                ['Ask for advice if there is a dispute', 'A qualified labour adviser or lawyer may help if there is pressure, missing pay, safety concerns, or a disagreement about notice.'],
+              ],
+              evidence: ['Employment contract or offer letter', 'Your dated written notice and delivery proof', 'Payslips and outstanding-pay records', 'Messages about resignation or handover'],
+            });
+          }
+
+          if (/unsafe|dangerous|injury|hazard|safety|危险|安全|受伤|职业病/.test(lower)) {
+            return report({
+              title: 'Your workplace safety concern may need urgent attention',
+              understand: `From what you've described, you may have been asked to work in conditions that feel unsafe in ${location}.`,
+              relevant: 'This may involve workplace safety, unsafe instructions, and conditions that could endanger health or safety.',
+              law: chinaLabourLaw('32', 'Article 32 says that a worker who refuses an unlawful instruction or an order to undertake a risky operation is not regarded as breaching the labour contract. It also says workers may criticise, report, or complain about working conditions that endanger life safety or health.', 'This may be relevant if you were asked to do something unsafe. Immediate safety should come before collecting evidence.'),
+              steps: [
+                ['Put safety first', 'If there is immediate danger, move to a safer place and contact appropriate emergency or workplace-safety support.'],
+                ['Record the concern if safe', 'Keep the instruction, photos of conditions, dates, and any witness information only if doing so does not increase risk.'],
+                ['Report through a safe route', 'Consider a workplace safety contact, trusted person, union, or appropriate authority.'],
+                ['Get specialised advice', 'A qualified labour or safety adviser may explain the safest next step for your situation.'],
+              ],
+              evidence: ['Work instructions or messages', 'Photos or incident records, only if safe', 'Medical or incident reports if applicable', 'Names of witnesses or people told about the risk'],
+            });
+          }
+
+          if (/fired|dismissed|termination|terminated|laid off|layoff|lose.*job|辞退|解雇|开除|裁员|解除合同/.test(lower)) {
+            return report({
+              title: 'Your dismissal or termination may need checking',
+              understand: `From what you've described, your employer in ${location} may have dismissed you or ended your labour contract.`,
+              relevant: 'This may involve the reason for termination, the procedure used, and whether the termination complied with the applicable rules.',
+              law: chinaLabourLaw('48', 'Article 48 says that where an employer terminates or ends a labour contract in violation of the law, the worker may ask for the contract to continue. If the worker does not ask for continued performance, or the contract cannot continue, compensation is dealt with under Article 87.', 'This may be relevant if a termination was not lawful. It does not establish that your employer acted unlawfully; the reason, process, and documents need careful review.'),
+              steps: [
+                ['Ask for the reason and documents', 'Keep any termination notice, reason given, performance records, and messages from the employer.'],
+                ['Write a timeline', 'Record when you were told, who was present, and what happened before the decision.'],
+                ['Do not sign unclear documents', 'Read any settlement, resignation, or termination document carefully and ask for time to understand it.'],
+                ['Seek tailored advice promptly', 'A qualified labour adviser, lawyer, or appropriate labour authority may explain local procedures and possible time limits.'],
+              ],
+              evidence: ['Termination or dismissal notice', 'Employment contract and staff rules', 'Performance, attendance, or disciplinary records', 'Messages and a dated timeline'],
+            });
+          }
+
+          return report({
+            title: 'Your China employment concern may have a formal route for help',
+            understand: `From what you've described, you may have an employment or labour-contract concern in ${location}.`,
+            relevant: 'China labour-contract rules and procedures may be relevant. The specific article depends on the exact issue, so this prototype will not choose one without a closer match.',
+            law: chinaLabourLaw('77', 'Article 77 says that workers whose lawful rights and interests are infringed may request relevant departments to handle the matter, or apply for arbitration or bring a lawsuit in accordance with the law.', 'This may be relevant to a labour-rights concern, but it does not identify the right procedure for your particular facts.'),
+            steps: [
+              ['Make a clear timeline', 'Record what happened, when it happened, and which employer or organisation was involved.'],
+              ['Keep work-related records', 'Save the contract, payslips, schedules, messages, and any notices that relate to the concern.'],
+              ['Identify the specific issue', 'Write down whether the main concern is pay, contract terms, working hours, safety, social insurance, or a termination.'],
+              ['Get local advice', 'A qualified labour adviser, lawyer, or appropriate labour authority may help identify the correct route.'],
+            ],
+            evidence: ['Employment contract or offer letter', 'Payslips, schedules, or contribution records', 'Messages, emails, and formal notices', 'A dated timeline of events'],
+          });
+        };
+
+        const makeDemoReport = (question, location, locationData = {}) => {
+          const lower = question.toLowerCase();
+          const common = {
+            location,
+            law: {
+              label: 'DEMO / PROTOTYPE',
+              name: 'Specific legal rule not verified for this demo',
+              description: 'A specific legal source could not be verified for this question. A future legal-information API would retrieve a potentially relevant rule from a reliable official or legal source.',
+              why: 'The exact rule depends on the full facts and the selected location, so this prototype will not guess.',
+              source: 'Official/legal source placeholder',
+              sourceUrl: '',
+            },
+            resources: resourceCards(location),
+          };
+
+          if (!hasEnoughDetail(question)) {
+            const questions = /photo|picture|image/.test(lower)
+              ? ['Was the image posted publicly or sent privately?', 'Is the person still using or sharing the image?']
+              : /scam|money|seller|paid|order/.test(lower)
+                ? ['What did you pay for, and how did you pay?', 'Have you contacted the seller or platform yet?']
+                : ['What happened, in one or two sentences?', 'Who was involved: a person, a school, a seller, or an online platform?'];
+            return { ...common, status: 'follow-up', questions };
+          }
+
+          const chinaLabourReport = makeChinaLabourReport(question, location, common, locationData);
+          if (chinaLabourReport) return chinaLabourReport;
+
+          if (/husband|wife|partner|spouse|domestic violence|domestic abuse|abused me|abuse at home|violence at home|abusing|abusive|家庭暴力|家暴/.test(lower)) {
+            const chinaLaw = locationData.country === 'China' ? {
+              label: 'DEMO / PROTOTYPE · VERIFIED EXAMPLE',
+              name: 'Anti-Domestic Violence Law of the People’s Republic of China',
+              description: 'Article 23 states that where a person has suffered domestic violence or faces a real danger of domestic violence, a people’s court shall accept an application for a personal safety protection order.',
+              why: 'Based on what you described, domestic violence and personal safety may be relevant. Whether this specific protection applies depends on the facts and the court’s assessment.',
+              source: 'National People’s Congress of the People’s Republic of China — official text',
+              sourceUrl: 'https://www.npc.gov.cn/npc/c2/c10134/201905/t20190521_260193.html',
+            } : common.law;
+            return {
+              ...common,
+              status: 'answer',
+              title: 'Your safety and access to support may be important right now',
+              understand: `From what you've described, you may be experiencing domestic violence and may be looking for information about safety, rights, and possible ways to get help in ${location}.`,
+              relevant: 'This situation may involve domestic-violence law, personal safety, possible protection orders, and access to support services. The exact protections depend on your location and circumstances.',
+              law: chinaLaw,
+              resources: resourceCards(location, 'safety'),
+              steps: [
+                ['Prioritize immediate safety', 'If you are in immediate danger, consider getting to a safer place and contacting appropriate emergency services or a trusted person.'],
+                ['Reach out for safe support', 'A qualified local support organisation, trusted adult, or appropriate authority may help you think through options without confronting the person harming you.'],
+                ['Seek legal advice about protections', 'A qualified lawyer or legal-aid service may be able to explain whether protections such as a safety order could be available.'],
+                ['Preserve information only if safe', 'Messages, photos of injuries, medical records, or a timeline may be useful, but do not collect or store evidence if it could increase danger.'],
+              ],
+              evidence: ['Messages, emails, or call records, only if safe to keep', 'Photos or medical records, only if safe and appropriate', 'A private timeline of incidents, dates, or threats', 'Names of trusted people who may know what happened'],
+            };
+          }
+
+          if (/artwork|drawing|illustration|design|copied my art|copied.*art/.test(lower)) {
+            return {
+              ...common,
+              resources: resourceCards(location, 'online'),
+              status: 'answer',
+              title: 'Your artwork may have been used without permission',
+              understand: `From what you've described, someone may have copied your artwork and presented it online as their own in or from ${location}.`,
+              relevant: 'This may involve copyright, authorship, attribution, or platform intellectual-property rules, depending on the facts and your location.',
+              steps: [
+                ['Save your original work', 'Keep original files, drafts, sketches, timestamps, or messages that may help show when you created the artwork.'],
+                ['Capture the copied post', 'Save screenshots, the account name, URL, captions, and date before the post changes or disappears.'],
+                ['Use the correct platform report', 'Look for the platform’s copyright or intellectual-property reporting route rather than a general report.'],
+                ['Consider asking for correction', 'If it feels safe, you could ask the person to remove the work or correct the attribution in writing.'],
+              ],
+              evidence: ['Original files, drafts, or creation dates', 'Screenshots and links to the copied post', 'Messages about permission or ownership', 'Copies of any report you make to the platform'],
+            };
+          }
+
+          if (/threat|threaten|harass|bully|violent|scared/.test(lower)) {
+            return {
+              ...common,
+              resources: resourceCards(location, 'safety'),
+              status: 'answer',
+              title: 'Threatening messages may need prompt attention',
+              understand: `From what you've described, someone may be sending you threatening or harassing messages connected to ${location}.`,
+              relevant: 'This may involve threats, harassment, online safety, or school and platform rules depending on the wording, risk, and location.',
+              steps: [
+                ['Put safety first', 'If you think there is an immediate risk, contact local emergency services or a trusted adult right away.'],
+                ['Save the full message history', 'Keep screenshots that show the account, date, time, and surrounding messages so the context is not lost.'],
+                ['Report through the safest route', 'Consider the platform’s safety-reporting tool and, where appropriate, a trusted adult, school, workplace, or local authority.'],
+                ['Avoid escalating contact', 'Do not meet or engage with the person if that could make you less safe.'],
+              ],
+              evidence: ['Full screenshots of messages and account details', 'Links, usernames, or phone numbers shown', 'A timeline of messages and any escalation', 'Names of people who saw relevant messages'],
+            };
+          }
+
+          if (/school|teacher|punish|disciplin|suspend|detention/.test(lower)) {
+            return {
+              ...common,
+              resources: resourceCards(location, 'school'),
+              status: 'answer',
+              title: 'You may need clearer information about the school decision',
+              understand: `From what you've described, your school may have disciplined you without clearly explaining the reason or process in ${location}.`,
+              relevant: 'This may involve school disciplinary procedures, student rights, education rules, or the school’s own policy.',
+              steps: [
+                ['Write down what happened', 'Record dates, conversations, notices, and what you were told while the details are still fresh.'],
+                ['Ask for the reason in writing', 'You could ask which rule was involved, what decision was made, and what information the school relied on.'],
+                ['Check the school policy', 'Look at the student handbook or discipline policy so you can compare it with the process you experienced.'],
+                ['Ask for support', 'A parent, guardian, counsellor, or trusted staff member may help you understand the next appropriate step.'],
+              ],
+              evidence: ['Notices, emails, or messages from the school', 'The relevant student handbook or policy', 'A timeline of what happened', 'Notes from meetings or conversations'],
+            };
+          }
+
+          if (/scam|seller|refund|paid|order|delivery|delivered|online shop|bought|purchase/.test(lower)) {
+            return {
+              ...common,
+              resources: resourceCards(location, 'consumer'),
+              status: 'answer',
+              title: 'Your online purchase may involve a consumer dispute',
+              understand: `From what you've described, you may have paid for an online purchase but the seller has not provided what was promised in or from ${location}.`,
+              relevant: 'This may involve consumer protection, transaction terms, refunds, delivery obligations, or platform dispute rules depending on the facts and location.',
+              steps: [
+                ['Keep the purchase record', 'Save the listing, order confirmation, receipt, delivery estimate, and messages with the seller.'],
+                ['Contact the seller in writing', 'Clearly ask for delivery or a refund and keep a copy of your request and any response.'],
+                ['Use the platform or payment dispute process', 'If the seller does not resolve the issue, check whether the marketplace or payment provider has a dispute route.'],
+                ['Look for local consumer support', 'A consumer-protection or local advice service may explain options available in your location.'],
+              ],
+              evidence: ['Product listing and seller profile', 'Order number and payment confirmation', 'Messages and delivery tracking', 'Records of any refund or dispute request'],
+            };
+          }
+
+          if (/photo|picture|image|post|social|online|video/.test(lower)) {
+            return {
+              ...common,
+              resources: resourceCards(location, 'online'),
+              status: 'answer',
+              title: 'Your photo may have been shared without permission',
+              understand: `From what you've described, someone may be using or sharing your photo online without your permission in or from ${location}.`,
+              relevant: 'This may involve privacy, image rights, or another area of law depending on your location, the purpose of the post, and who can see it.',
+              steps: [
+                ['Save the evidence', 'Capture the post, account/profile, date, time, comments, and URL before anything changes.'],
+                ['Keep original copies', 'Save more than one copy of relevant screenshots or messages somewhere safe.'],
+                ['Consider reporting the content', 'If appropriate, use the platform’s privacy, image, or removal tools and save a record of the report.'],
+                ['Consider asking for removal', 'If it feels safe, you could ask the person who posted the photo to remove it in writing.'],
+              ],
+              evidence: ['Screenshots of the full post and account', 'Post link, date, time, and comments', 'Messages showing you did not agree to sharing', 'Records of platform reports or responses'],
+            };
+          }
+
+          return {
+            ...common,
+            status: 'answer',
+            title: 'Here are some possible next steps',
+            understand: `From what you've described, you may be dealing with an issue that affects your rights or wellbeing in ${location}.`,
+            relevant: 'The relevant rules may depend on the exact facts, the people or organisation involved, and your location.',
+            steps: [
+              ['Write down what happened', 'Make a clear timeline with dates, places, messages, and people involved.'],
+              ['Keep relevant records', 'Save documents, screenshots, receipts, or messages that may help explain the situation.'],
+              ['Check the right policy or reporting route', 'The school, platform, seller, workplace, or service involved may have a procedure that applies.'],
+              ['Ask for appropriate support', 'A trusted adult, legal-aid service, qualified lawyer, or local support organisation may help you decide what to do next.'],
+            ],
+            evidence: ['Relevant messages or emails', 'Screenshots, links, or receipts', 'A dated timeline', 'Any reports or responses you receive'],
+          };
+        };
+
+        const renderSteps = (steps) => `<ol class="step-list">${steps.map(([title, description], index) => `
+          <li><span class="step-number">${index + 1}</span><span class="step-copy"><strong>${escapeHtml(title)}</strong><span>${escapeHtml(description)}</span></span></li>`).join('')}</ol>`;
+
+        const renderResources = (resources, location) => `
+          <p class="resource-note"><span class="prototype-banner">Demo / prototype</span><br />Resources are organised for <strong>${escapeHtml(location)}</strong> and the issue you described. We couldn't verify a suitable resource for this area yet. Live local resources will be connected through verified sources in the next development stage.</p>
+          <div class="resource-grid">${resources.map((resource) => `
+            <article class="resource-card">
+              <span class="prototype-banner">Demo / prototype</span>
+              <strong>${escapeHtml(resource.name)}</strong>
+              <dl class="resource-details">
+                <div><dt>Type</dt><dd>${escapeHtml(resource.type)}${resource.privateService ? '<span class="private-service">Private legal service</span>' : ''}</dd></div>
+                <div><dt>Purpose</dt><dd>${escapeHtml(resource.purpose)}</dd></div>
+                <div><dt>Location</dt><dd>${escapeHtml(resource.location)}</dd></div>
+                <div><dt>Website</dt><dd>${escapeHtml(resource.website)}</dd></div>
+                <div><dt>Phone / contact</dt><dd>${escapeHtml(resource.contact)}</dd></div>
+                <div><dt>Source</dt><dd>${escapeHtml(resource.source)}</dd></div>
+                <div><dt>Verification</dt><dd>${escapeHtml(resource.verification)}</dd></div>
+                <div><dt>Last checked</dt><dd>${escapeHtml(resource.lastChecked)}</dd></div>
+              </dl>
+            </article>`).join('')}</div>`;
+
+        const renderDisclaimer = () => `<p class="disclaimer"><span class="disclaimer-icon">⚖</span><span><strong>Maria's Justice Hub is not meant to replace a lawyer.</strong> This information is for general guidance and does not replace professional legal advice.</span></p>`;
+
+        const comfortMessage = (question) => {
+          const lower = question.toLowerCase();
+          if (/threat|threaten|harass|bully|violent|scared|abuse|danger|hurt|伤害|威胁|霸凌|欺凌/.test(lower)) return 'I’m sorry this is happening. You deserve support and safety, and you do not have to handle a frightening situation alone.';
+          if (/scam|seller|refund|paid|order|delivery|bought|purchase|被骗|诈骗/.test(lower)) return 'I’m sorry this happened. Try not to blame yourself — scams and unfair situations can feel convincing. You can focus on one safe next step now.';
+          if (/photo|picture|image|post|social|online|video|照片|图片|隐私/.test(lower)) return 'I know this can feel really uncomfortable. You deserve to be heard and to have a calm plan for what to do next.';
+          if (/employer|boss|manager|employee|workplace|wage|salary|overtime|劳动|工资|加班|工作/.test(lower)) return 'You are doing something sensible by asking before making a rushed decision. Let’s make the next step clearer.';
+          return 'You do not have to figure everything out at once. Start with what you know, and take one clear step at a time.';
+        };
+
+        const renderComfortCard = (question) => `<aside class="comfort-card"><span class="comfort-icon" aria-hidden="true">💛</span><span><strong>A gentle reminder</strong>${escapeHtml(comfortMessage(question))}</span></aside>`;
+
+        const renderFollowUp = (report, question, location, locationData) => {
+          answerShell.innerHTML = `
+            <div class="answer-topline"><span class="answer-label"><span class="answer-spark">✦</span> Maria's Justice Hub</span><span class="answer-status">DEMO / PROTOTYPE</span></div>
+            ${renderComfortCard(question)}
+            <div class="answer-grid" style="margin-top:25px">
+              <article class="answer-card answer-card--wide answer-card--warning">
+                <span class="prototype-banner">Demo / prototype</span>
+                <h3><span>?</span>I need a little more information.</h3>
+                <p>To avoid guessing, please answer only the details below that you are comfortable sharing. Do not include names, addresses, passwords, or other identifying details.</p>
+              </article>
+              <form class="follow-up" id="follow-up-form">
+                <div class="follow-up-fields">
+                  ${report.questions.map((item, index) => `<label for="follow-up-${index}">${index + 1}. ${escapeHtml(item)}<input id="follow-up-${index}" type="text" autocomplete="off" /></label>`).join('')}
+                </div>
+                <button class="input-button" type="submit">Update my answer →</button>
+              </form>
+            </div>
+            ${renderDisclaimer()}`;
+          document.querySelector('#follow-up-form').addEventListener('submit', (event) => {
+            event.preventDefault();
+            const additions = report.questions.map((item, index) => {
+              const value = document.querySelector(`#follow-up-${index}`).value.trim();
+              return value ? `${item} ${value}` : '';
+            }).filter(Boolean);
+            if (!additions.length) return;
+            const updatedQuestion = `${question} ${additions.join(' ')}`;
+            renderReport(makeDemoReport(updatedQuestion, location, locationData), updatedQuestion, location, locationData);
+          });
+        };
+
+        const renderReport = (report, question, location, locationData) => {
+          if (report.status === 'follow-up') return renderFollowUp(report, question, location, locationData);
+          answerShell.innerHTML = `
+            <div class="answer-topline">
+              <span class="answer-label"><span class="answer-spark">✦</span> Maria's Justice Hub response</span>
+              <span class="answer-status">DEMO / PROTOTYPE · ${escapeHtml(location)}</span>
+            </div>
+            <p class="answer-question">Your question: “${escapeHtml(question)}”</p>
+            ${renderComfortCard(question)}
+            <div class="answer-grid">
+              <article class="answer-card answer-card--wide"><h3><span>1</span>What I Understand</h3><p>${escapeHtml(report.understand)}</p></article>
+              <article class="answer-card answer-card--wide"><h3><span>2</span>What May Be Relevant</h3><p>${escapeHtml(report.relevant)}</p></article>
+              <article class="answer-card answer-card--law">
+                <span class="prototype-banner">${escapeHtml(report.law.label)}</span>
+                <h3><span>3</span>Relevant Law</h3>
+                <p><strong>${escapeHtml(report.law.name)}</strong><br />${escapeHtml(report.law.description)}</p>
+                <div class="law-details">
+                  <div class="law-detail law-detail--wide"><span class="law-detail-label">Why it may matter</span><span class="law-detail-value">${escapeHtml(report.law.why)}</span></div>
+                  <div class="law-detail law-detail--wide"><span class="law-detail-label">Source</span><span class="law-detail-value">${report.law.sourceUrl ? `<a class="law-source" href="${escapeHtml(report.law.sourceUrl)}" target="_blank" rel="noopener noreferrer">${escapeHtml(report.law.source)}</a>` : `<strong>${escapeHtml(report.law.source)}</strong>`}</span></div>
+                </div>
+              </article>
+              <article class="answer-card answer-card--wide">
+                <h3><span>4</span>What You Can Do Next</h3>
+                ${renderSteps(report.steps)}
+                <div class="law-details"><div class="law-detail law-detail--wide"><span class="law-detail-label">Evidence to keep</span><span class="law-detail-value"><ul class="checklist">${report.evidence.map((item) => `<li>${escapeHtml(item)}</li>`).join('')}</ul></span></div></div>
+              </article>
+              <article class="answer-card answer-card--wide"><h3><span>5</span>Find Real Help in Your Area</h3>${renderResources(report.resources, location)}</article>
+            </div>
+            ${renderDisclaimer()}`;
+        };
+
+        const submitQuestion = (question, locationData) => {
+          const requestPayload = buildFutureRequest(question, locationData);
+          const location = formatLocation(locationData);
+          submitButton.disabled = true;
+          submitButton.textContent = 'Preparing…';
+          showLoading();
+          window.setTimeout(() => {
+            renderReport(makeDemoReport(requestPayload.question, location, requestPayload), requestPayload.question, location, requestPayload);
+            submitButton.disabled = false;
+            submitButton.textContent = "Ask Maria's Justice Hub →";
+          }, 550);
+        };
+
+        locationSelect.addEventListener('change', () => {
+          resetRegionalFields();
+          updateLocationLabels();
+          updateLocationFlow();
+        });
+        otherLocationInput.addEventListener('input', updateLocationFlow);
+        regionInput.addEventListener('input', updateLocationFlow);
+        cityInput.addEventListener('input', updateLocationFlow);
+        document.querySelectorAll('.ask-trigger').forEach((button) => {
+          button.addEventListener('click', () => {
+            document.querySelector('#ask').scrollIntoView({ behavior: 'smooth', block: 'center' });
+            window.setTimeout(() => questionInput.focus(), 450);
+          });
+        });
+        form.addEventListener('submit', (event) => {
+          event.preventDefault();
+          const question = questionInput.value.trim();
+          const locationData = selectedLocationData();
+          formError.textContent = '';
+          if (!question) return showError('Please describe what happened before asking Maria\'s Justice Hub.');
+          if (!locationData.country) return showError('Please select or enter your country or region before continuing.');
+          submitQuestion(question, locationData);
+        });
+        addCountryOptions();
+        updateLocationLabels();
+        updateLocationFlow();
+      })();
+    </script>
+    <script>
+      /* Legacy China-only override retained below for source history. */
+      /*
+      (() => {
+        const form = document.querySelector('#question-form');
+        const question = document.querySelector('#question');
+        const country = document.querySelector('#location');
+        const province = document.querySelector('#region');
+        const city = document.querySelector('#city');
+        const district = document.querySelector('#district');
+        const answerSection = document.querySelector('#answer-section');
+        const answerShell = document.querySelector('#answer-shell');
+        const error = document.querySelector('#form-error');
+        let lang = 'en';
+        const escape = (v) => String(v || '').replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
+        const source = {
+          bullying: 'https://www.moe.gov.cn/jyb_sjzl/sjzl_zcfg/zcfg_qtxgfl/202110/t20211025_574798.html',
+          domestic: 'https://www.npc.gov.cn/npc/c2/c10134/201905/t20190521_260193.html',
+          women: 'https://wb.flk.npc.gov.cn/flfg/PDF/7beea84685184f02979044b09caf7844.pdf',
+          elder: 'https://wb.flk.npc.gov.cn/flfg/PDF/ffae7894a3e54e478e94a708fd88f318.pdf',
+          work: 'https://flk.npc.gov.cn/search',
+          privacy: 'https://wb.flk.npc.gov.cn/flfg/PDF/bd53dd912c1048f2aecbaa229238334b.pdf',
+          general: 'https://wb.flk.npc.gov.cn/flfg/PDF/bd53dd912c1048f2aecbaa229238334b.pdf'
+        };
+        const copy = {
+          en: { what:'What I Understand', relevant:'What May Be Relevant', law:'Relevant Law', next:'What You Can Do Next', help:'China support numbers', evidence:'Useful information to keep', why:'Why it may matter', comfort:'💛 A gentle reminder', location:'Location used:', question:'Your question:', emergency:'If you are in immediate danger', disclaimer:"Maria's Justice Hub is not meant to replace a lawyer. This information is for general guidance and does not replace professional legal advice.", source:'Open official source ↗', china:'China — currently supported', province:'Province / Autonomous Region / Municipality', city:'City / Municipality', district:'District / County / Area', submit:"Ask Maria's Justice Hub →", ask:'What happened?', hint:"Describe your situation in your own words. You don't need legal terms." },
+          zh: { what:'我理解的情况', relevant:'可能相关的内容', law:'相关法条', next:'你接下来可以做什么', help:'中国支持电话', evidence:'可保留的信息', why:'为什么可能相关', comfort:'💛 温柔提醒', location:'使用的位置：', question:'你的问题：', emergency:'如果你现在有危险', disclaimer:'Maria 的 Justice Hub 不代替律师。本信息只用于一般指导，不代替专业法律意见。', source:'打开官方来源 ↗', china:'中国 — 当前支持', province:'省 / 自治区 / 直辖市', city:'城市 / 市', district:'区 / 县 / 地区', submit:'询问 Maria 的 Justice Hub →', ask:'发生了什么？', hint:'用自己的话描述情况。你不需要懂法律词汇。' }
+        };
+        const CN = {
+          bullying:{ heading:'你在学校值得得到安全和支持', comfort:'反复被欺凌会让人感到孤单和疲惫。这不是你的错；告诉可信任的大人，是勇敢且重要的第一步。', understand:'从你的描述看，同学可能在反复欺凌、嘲笑、排挤、威胁或骚扰你。', relevant:'这可能涉及学生欺凌、校园安全、学校报告程序；如有威胁或暴力，也涉及人身安全。', lawTitle:'《中华人民共和国未成年人保护法》——第三十九条', law:'第三十九条规定：学校应当建立学生欺凌防控工作制度；学校对学生欺凌行为应当立即制止，通知双方学生的父母或者其他监护人参与认定和处理，并及时给予心理辅导、教育和引导。', why:'这条可能相关，因为学校有责任防控和处理学生欺凌；你不需要一个人解决。', steps:[['今天告诉可信任的大人','告诉家长、老师、班主任、学校心理老师或学生安全负责人，并请对方记录你的报告。'],['保留事情经过','保存截图、日期、地点、证人姓名和每次事情发生的简短时间线。'],['要求学校处理','询问学校的反欺凌处理流程、安全计划和心理支持。'],['风险变大时求助','如有威胁、暴力或立即危险，拨打 110 或请大人帮你拨打。']], evidence:['完整聊天截图和账号名称','日期、地点、证人和时间线','向学校报告的记录及学校回复'] },
+          domestic:{ heading:'你的安全和支持现在可能非常重要', comfort:'很抱歉你正在经历这些。你值得得到支持，也不需要独自面对可怕的情况。', understand:'从你的描述看，你可能正在亲密关系或家庭关系中经历虐待或暴力。', relevant:'这可能涉及家庭暴力、人身安全、警方记录、支持服务和可能的人身安全保护令。', lawTitle:'《中华人民共和国反家庭暴力法》——第二、十三、十五、二十、二十三条', law:'第二条说明家庭暴力的含义。第十三条允许受害人、法定代理人或近亲属向相关组织求助。第十五条规定公安机关接到报案后应当及时出警、制止暴力、调查取证。第二十条规定部分出警记录和伤情记录可作为证据。第二十三条规定，遭受家庭暴力或面临现实危险的人申请人身安全保护令的，人民法院应当受理。', why:'安全、报警、证据和人身安全保护令可能是重要选择；具体是否适用取决于事实和法院判断。', emergency:true, steps:[['先保证立即安全','如有立即危险，去更安全的地方，拨打 110、120，或立刻告诉可信任的大人。'],['安全时保留资料','聊天记录、病历、照片、日期和出警记录可能有帮助；如果会增加危险就不要冒险。'],['寻求支持','联系 12348、可信任的大人、妇联、社区组织或合格专业人士。']], evidence:['只在安全时保存的信息或通话记录','只在安全时保存病历或照片','私下记录事件、威胁或伤害的时间线'] },
+          women:{ heading:'你值得得到尊严、安全和公平对待', comfort:'没有人应该遭遇不受欢迎的行为或不公平对待。你不需要独自处理。', understand:'你可能在描述性骚扰、不受欢迎的信息或身体接触，或与怀孕、产假、哺乳、性别有关的不公平对待。', relevant:'这可能涉及防止性骚扰、隐私和人格尊严、学校或用人单位责任，或就业平等。', lawTitle:'《中华人民共和国妇女权益保障法》——第二十三、二十四、二十五、二十八、四十八条', law:'第二十三条禁止违背妇女意愿，以言语、文字、图像、肢体行为等方式实施性骚扰。第二十四条要求学校保护女学生安全、预防性骚扰。第二十五条要求用人单位预防和制止性骚扰。第四十八条规定，用人单位不得因结婚、怀孕、产假、哺乳等降低女职工工资福利、限制晋职晋级、辞退或单方解除劳动合同。', why:'学校、工作场所和网络场景的处理路径可能不同；这些条文可能帮助理解学校或用人单位的责任。', emergency:true, steps:[['有危险先到安全处','如果有立即危险，拨打 110、120，或告诉可信任的大人。'],['安全时保留记录','保存信息、日期、截图和时间线。'],['使用合适的报告渠道','在学校告诉可信任的大人；在工作场所可考虑单位投诉渠道和 12348。']], evidence:['信息、图片或截图','日期、地点、证人和时间线','已提交的报告和收到的回复'] },
+          elder:{ heading:'一位老人可能需要照顾和支持', comfort:'你愿意寻找帮助很重要。困难的家庭情况不需要你一个人解决。', understand:'一位老人可能需要照顾、医疗、经济帮助，或需要免受忽视和遗弃。', relevant:'这可能涉及赡养义务、照料、精神慰藉、基本保障或对老年人的保护。', lawTitle:'《中华人民共和国老年人权益保障法》——第三、十四、十五、十八、十九、三十一、七十三条', law:'第二条规定本法所称老年人是六十周岁以上公民。第三条禁止歧视、侮辱、虐待或遗弃老年人。第十四、十五条要求赡养人提供经济供养、生活照料和精神慰藉，并在需要时及时安排治疗或照料。第十八条规定家庭成员不得忽视、冷落老年人。第七十三条允许老年人或其代理人向有关部门请求帮助或提起诉讼。', why:'老人缺少必要照料或支持时，这些条文可能相关。最安全的下一步取决于健康情况和立即风险。', steps:[['需要时先紧急求助','有立即危险拨打 110；需要紧急医疗帮助拨打 120。'],['记录缺少什么支持','安全时记录日期、病历信息、消息和经济资料。'],['寻求合格帮助','联系 12348，或适当的社区、社会服务机构或合格当地专业人士。']], evidence:['缺少照料或支持的日期与情况','相关消息、病历信息或资料','已经告诉过的成人或专业人士姓名'] },
+          work:{ heading:'这可能是中国劳动或工作场所问题', comfort:'在仓促决定前先提问是明智的。我们可以先把下一步弄清楚。', understand:'你可能在描述就业、工资、合同、加班、安全或工作场所对待问题。', relevant:'劳动合同法可能与劳动关系有关。具体结果取决于合同、证据、用人单位和完整事实。', lawTitle:'《中华人民共和国劳动合同法》——第十七、十八、七十七条', law:'第十七条列出劳动合同通常应包括的内容，如工作内容、工作地点、工作时间、劳动报酬、社会保险和劳动保护。第十八条涉及劳动报酬或劳动条件约定不明确。第七十七条规定，劳动者合法权益受到侵害的，可以要求有关部门依法处理、申请仲裁或者提起诉讼。', why:'当合同条款、工资、工作条件或劳动争议不明确时，这些条文可能有帮助。', steps:[['保留文件','保留劳动合同、工资单、排班表、信息和时间线。'],['安全时书面询问','向用人单位要求清晰的书面说明，并保留回复。'],['使用劳动支持服务','联系 12348、合格劳动顾问、工会或当地人力资源社会保障部门。']], evidence:['劳动合同和规章制度','工资单、排班和加班记录','信息和书面请求或回复'] },
+          privacy:{ heading:'这可能涉及隐私、肖像或名誉', comfort:'在快速反应前先提问是正确的。我们可以平静地一步一步来。', understand:'你可能在描述照片、个人信息、隐私、名誉或网络内容问题。', relevant:'民法典和平台规则可能相关。具体结果取决于事实、证据和是否存在同意。', lawTitle:'《中华人民共和国民法典》——第一千零一十八、第一千零一十九、第一千零三十二、第一千零三十四、第一千一百九十五条', law:'第一千零一十八条规定自然人享有肖像权；第一千零一十九条规定，除法律另有规定外，任何组织或个人不得制作、使用、公开他人肖像。第一千零三十二条保护隐私权，第一千零三十四条保护个人信息。第一千一百九十五条允许权利人通知网络服务提供者采取删除、屏蔽、断开链接等必要措施。', why:'如果照片、可识别信息或有害网络内容被传播，这些条文可能相关；平台删除和保留证据可能很重要。', steps:[['保存帖子资料','保存截图、链接、用户名、日期和消息。'],['使用平台官方渠道','使用平台官方举报或删除流程，并保留提交记录。'],['寻求建议','通过 12348 或合格当地顾问，了解你的情况如何适用法律。']], evidence:['内容和账号的截图','链接、用户名、日期和评论','显示未同意传播的消息'] },
+          general:{ heading:'这是一个谨慎的中国法律信息起点', comfort:'你不需要一下子弄清所有事情。先从你知道的情况开始，一步一步来。', understand:'Justice Hub 已记录你的问题和中国位置；要找出主要法律问题，可能还需要更多细节。', relevant:'这可能涉及民事权利、校规、工作场所规定、平台规则或当地支持服务。', lawTitle:'《中华人民共和国民法典》——第一千一百六十五条', law:'第一千一百六十五条规定，行为人因过错侵害他人民事权益造成损害的，应当承担侵权责任。这是一条一般性的民事法律起点，并不代表它一定适用于你的情况。', why:'事实、损害和证据很重要；情况更清楚后，可能适用更具体的法律规则。', steps:[['写一条简短时间线','记录发生了什么、何时、何地以及涉及谁。'],['保留相关信息','保存消息、文件、照片、收据或链接。'],['告诉合适的人','告诉可信任的大人、学校支持人员、12348 法律服务或合格专业人士。']], evidence:['包含日期和地点的时间线','相关消息、文件、照片或收据','已提交的报告和收到的回复'] }
+        };
+        function english(c){ const map={bullying:['You deserve safety and support at school','Being repeatedly bullied is not your fault. Telling a trusted adult is a strong first step.','A classmate may be repeatedly bullying, excluding, threatening, or harassing you.','This may involve student bullying, school safety, and school reporting procedures.','Law of the People’s Republic of China on the Protection of Minors — Article 39','Article 39 says schools must establish systems to prevent and control student bullying. Schools must immediately stop bullying, notify the parents or other guardians of both students, and give timely psychological counselling, education, and guidance.','This may matter because the school has a responsibility to act; you do not have to solve it alone.'],domestic:['Your safety and support may matter right now','I’m sorry this is happening. You deserve support and do not have to face it alone.','You may be experiencing abuse or violence in a close or family relationship.','This may involve domestic violence, personal safety, police records, support services, and possible court protection.','Anti-Domestic Violence Law — Articles 2, 13, 15, 20 and 23','Article 2 describes domestic violence. Article 13 allows a victim, legal representative, or close relative to seek help. Article 15 says police should promptly attend, stop violence, investigate, and collect evidence. Article 20 says certain police and injury records may be used as evidence. Article 23 says a court shall accept an application for a personal safety protection order when there is domestic violence or real danger.','Safety, reporting, evidence, and a possible protection order may matter; the result depends on the facts and court assessment.'],women:['You deserve dignity, safety, and fair treatment','No one deserves unwanted behaviour or unfair treatment.','You may be describing sexual harassment, unwanted contact, or unfair treatment linked to pregnancy, maternity leave, breastfeeding, or gender.','This may involve school or employer responsibilities, dignity, privacy, and equality in employment.','Law on the Protection of Women’s Rights and Interests — Articles 23, 24, 25, 28 and 48','Article 23 prohibits sexual harassment by words, text, images, physical acts, or other means against a woman’s will. Articles 24 and 25 require schools and employers to prevent it. Article 48 prohibits certain adverse employment treatment because of marriage, pregnancy, maternity leave, or breastfeeding.','The right route can differ at school, work, or online; these provisions may help explain duties of schools or employers.'],elder:['An older person may need care and support','It is important that you are looking for help. You do not need to solve this alone.','An older person may need care, medical attention, financial help, or protection from neglect or abandonment.','This may involve family support duties, care, emotional support, or basic assistance.','Law on the Protection of the Rights and Interests of the Elderly — Articles 3, 14, 15, 18, 19, 31 and 73','Article 2 defines an elderly person as a citizen aged 60 or above. Article 3 prohibits discrimination, insult, abuse, and abandonment. Articles 14 and 15 require support, care, emotional comfort, and timely treatment when needed. Article 18 says family members must not neglect or cold-shoulder an older person. Article 73 allows help from relevant departments or a lawsuit when rights are infringed.','These articles may matter where needed care or support is missing.'],work:['This may be a China workplace concern','You are doing something sensible by asking before making a rushed decision.','You may be describing an employment, pay, contract, overtime, safety, or workplace-treatment issue.','The Labour Contract Law may be relevant. The exact outcome depends on the contract, evidence, employer, and full facts.','Labour Contract Law — Articles 17, 18 and 77','Article 17 lists matters normally included in a labour contract, including work, location, time, pay, social insurance, and safety. Article 18 addresses unclear pay or labour-condition terms. Article 77 says a worker whose lawful rights are infringed may seek handling, arbitration, or a lawsuit.','These provisions may help when pay, working conditions, contract terms, or a labour dispute are unclear.'],privacy:['This may involve privacy, an image, or reputation','You are doing the right thing by asking before reacting quickly.','You may be describing an image, personal information, privacy, reputation, or online-content issue.','The Civil Code and platform rules may be relevant.','Civil Code — Articles 1018, 1019, 1032, 1034 and 1195','Articles 1018 and 1019 protect portrait rights and generally prohibit making, using, or publishing another person’s portrait without consent. Article 1032 protects privacy, Article 1034 protects personal information, and Article 1195 allows notice to an online service provider for measures such as deletion or blocking.','These provisions may matter if a photo, identifying information, or harmful online content was shared.'],general:['Here is a careful China legal-information starting point','You do not have to figure everything out at once.','More detail may be needed to identify the main legal issue.','The issue may relate to a civil right, school rule, workplace policy, platform rule, or local support service.','Civil Code — Article 1165','Article 1165 says a person who, through fault, infringes another person’s civil rights and causes damage bears tort liability. This is a general starting point, not a conclusion that it applies.','Facts, harm, and evidence matter; a more specific rule may apply once the situation is clearer.']};const a=map[c];return {heading:a[0],comfort:a[1],understand:a[2],relevant:a[3],lawTitle:a[4],law:a[5],why:a[6],emergency:c==='domestic'||c==='women',steps:[['Tell a trusted adult or appropriate person','Ask a parent, teacher, school support person, or qualified adviser for help.'],['Keep a safe record','Save dates, messages, screenshots, documents, and a short timeline when safe.'],['Use the right support route','Use 12348 for public legal information; for immediate danger use 110 or 120.']],evidence:['Dates, messages, and screenshots','Relevant documents or records','Reports made and responses received']}}
+        function classify(q){const x=q.toLowerCase();if(/husband|wife|partner|spouse|domestic violence|family violence|家暴|家庭暴力|虐待/.test(x))return'domestic';if(/sexual harassment|sexual message|unwanted touching|pregnant|pregnancy|maternity|breastfeed|性骚扰|怀孕|产假|哺乳|性别歧视/.test(x))return'women';if(/elderly|over 60|grandma|grandmother|grandpa|grandfather|赡养|老人|老年人|遗弃老人/.test(x))return'elder';if(/bully|bullying|classmate|schoolmate|picked on|校园欺凌|学生欺凌|霸凌|被欺负/.test(x))return'bullying';if(/workplace|employer|boss|salary|wage|overtime|employment|labou?r|劳动合同|工资|加班|辞退|工作单位/.test(x))return'work';if(/photo|picture|image|privacy|personal information|rumou?r|defam|portrait|照片|图片|隐私|个人信息|肖像|诽谤|名誉/.test(x))return'privacy';return'general'}
+        function show(q){const kind=classify(q),r=lang==='zh'?CN[kind]:english(kind),c=copy[lang],l=[district.value.trim(),city.value.trim(),province.value,'China'].filter(Boolean).join(' · ');const phones=[['110',lang==='zh'?'报警 / 紧急警务':'Police / urgent safety'],['120',lang==='zh'?'医疗急救':'Medical emergency'],['12348',lang==='zh'?'公共法律服务':'Public legal information'],['12345',lang==='zh'?'政务服务':'Government services'],['96110',lang==='zh'?'反诈预警':'Anti-scam warning']];answerShell.innerHTML=`<div class="answer-topline"><span class="answer-label"><span class="answer-spark">✦</span> Maria's Justice Hub</span><span class="answer-status">DEMO / PROTOTYPE · CHINA</span></div><p class="answer-question">${c.question} “${escape(q)}”<br><small>${c.location} ${escape(l)}</small></p><aside class="comfort-card"><span class="comfort-icon">💛</span><span><strong>${c.comfort}</strong>${escape(r.comfort)}</span></aside>${r.emergency?`<aside class="emergency"><strong>${c.emergency}</strong><p>${lang==='zh'?'请去更安全的地方，拨打 110、120，或立刻告诉可信任的大人。':'Move to a safer place and call 110, 120, or a trusted adult now.'}</p></aside>`:''}<div class="answer-grid"><article class="answer-card answer-card--wide"><h3><span>1</span>${c.what}</h3><p>${escape(r.understand)}</p></article><article class="answer-card answer-card--wide"><h3><span>2</span>${c.relevant}</h3><p>${escape(r.relevant)}</p></article><article class="answer-card answer-card--law"><span class="prototype-banner">${lang==='zh'?'已验证中国来源':'VERIFIED CHINA SOURCE'}</span><h3><span>3</span>${c.law}</h3><p><strong>${escape(r.lawTitle)}</strong><br>${escape(r.law)}</p><div class="law-details"><div class="law-detail law-detail--wide"><span class="law-detail-label">${c.why}</span><span class="law-detail-value">${escape(r.why)}</span></div><div class="law-detail law-detail--wide"><a class="law-source" href="${source[kind]}" target="_blank" rel="noopener">${c.source}</a></div></div></article><article class="answer-card answer-card--wide"><h3><span>4</span>${c.next}</h3><ol class="step-list">${r.steps.map((s,i)=>`<li><span class="step-number">${i+1}</span><span class="step-copy"><strong>${escape(s[0])}</strong><span>${escape(s[1])}</span></span></li>`).join('')}</ol><div class="law-details"><div class="law-detail law-detail--wide"><span class="law-detail-label">${c.evidence}</span><span class="law-detail-value"><ul class="checklist">${r.evidence.map(v=>`<li>${escape(v)}</li>`).join('')}</ul></span></div></div></article><article class="answer-card answer-card--wide"><h3><span>5</span>${c.help}</h3><div class="resource-grid">${phones.map(p=>`<a class="resource-card" href="tel:${p[0]}"><strong>${p[0]}</strong><span>${p[1]}</span></a>`).join('')}</div><p class="resource-note"><a class="law-source" href="https://zwfw.12348.gov.cn/qjd" target="_blank" rel="noopener">${lang==='zh'?'打开中国法律服务网（12348）':'Open China Legal Services Network (12348)'}</a></p></article></div><p class="disclaimer"><span class="disclaimer-icon">⚖</span><span><strong>${c.disclaimer}</strong></span></p>`;answerSection.hidden=false;answerSection.scrollIntoView({behavior:'smooth',block:'start'})}
+        function chinaOnly(){country.innerHTML='<option value="China">China</option>';country.value='China';country.disabled=true;document.querySelector('#other-location-wrap').hidden=true;document.querySelector('#region-wrap').hidden=false;document.querySelector('#city-wrap').hidden=false;document.querySelector('#district-wrap').hidden=false;province.placeholder=copy[lang].province;city.placeholder=copy[lang].city;district.placeholder=copy[lang].district;}
+        function translate(){const c=copy[lang];document.querySelector('#region-label').firstChild.textContent=c.province;document.querySelector('#city-label').firstChild.textContent=c.city;document.querySelector('#district-label').firstChild.textContent=c.district+' ';document.querySelector('label[for="question"]').textContent=c.ask;question.placeholder=c.hint;document.querySelector('label[for="location"]').textContent=lang==='zh'?'国家':'Country';document.querySelector('#submit-question').textContent=c.submit;document.querySelectorAll('#mh-lang button').forEach(b=>b.classList.toggle('active',b.dataset.lang===lang));if(!answerSection.hidden&&question.value.trim())show(question.value.trim())}
+        const toggle=document.createElement('div');toggle.id='mh-lang';toggle.innerHTML='<button class="active" data-lang="en">English</button><button data-lang="zh">中文</button>';toggle.style.cssText='display:flex;gap:6px;margin-left:auto';toggle.querySelectorAll('button').forEach(b=>{b.style.cssText='border:1px solid #eadbb5;border-radius:999px;background:#fff;padding:7px 10px;font-size:.75rem;font-weight:700';b.addEventListener('click',()=>{lang=b.dataset.lang;translate()})});document.querySelector('.nav').appendChild(toggle);
+        document.addEventListener('submit',e=>{if(e.target!==form)return;e.preventDefault();e.stopImmediatePropagation();const q=question.value.trim();if(q.length<8){error.textContent=lang==='zh'?'请再多描述一点发生了什么。':'Please describe a little more about what happened.';return}error.textContent='';show(q)},true);chinaOnly();translate();
+      })();
+      */
+    </script>
+    <script src="./js/justice-hub-logic.js"></script>
+  </body>
+</html>
